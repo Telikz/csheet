@@ -1,0 +1,109 @@
+/** biome-ignore-all lint/suspicious/noUnknownAtRules: Not important */
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@400;700&family=Inter:wght@400;600&display=swap");
+@import "tailwindcss";
+:root {
+	--bg: #1d1f21;
+	--card-bg: #2b2f33;
+	--primary: #9bffba;
+	--secondary: #5ac8a7;
+	--accent: #ffb86c;
+	--text: #e6e6e6;
+	--light-text: #aaa;
+	--shadow: rgba(0, 0, 0, 0.6);
+	--border: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Base ---------- */
+html,
+body {
+	@apply m-0 p-0 bg-[var(--bg)] text-[var(--text)]  antialiased;
+}
+
+code {
+	@apply font-mono;
+}
+
+/* ---------- Sheet ---------- */
+.sheet {
+	@apply max-w-[1500px] m-5 p-10 bg-[var(--card-bg)] rounded-2xl shadow-[0_6px_20px_var(--shadow)];
+}
+
+/* ---------- Header ---------- */
+header {
+	@apply text-center mb-8;
+}
+header h1 {
+	@apply text-5xl font-bold text-[var(--primary)] m-0 drop-shadow-[0_0_10px_rgba(155,255,186,0.4)];
+}
+header .subtitle {
+	@apply text-[1.2em] text-[var(--light-text)];
+}
+
+/* ---------- Headings ---------- */
+h2 {
+	@apply font-bold text-[1.8em] text-[var(--accent)] mt-4 mb-4 border-b-[3px] border-[var(--secondary)] pb-[6px];
+}
+
+/* ---------- Stats Table ---------- */
+.stat-table {
+	@apply w-full border-collapse my-4;
+}
+.stat-table th,
+.stat-table td {
+	@apply p-4 text-left text-pretty border-b border-[var(--border)] text-base;
+}
+.stat-table tbody tr:hover {
+	@apply bg-white/5;
+}
+
+/* Bars */
+.bar {
+	@apply h-[14px] bg-[#383c42] rounded-[6px] overflow-hidden;
+}
+.bar-fill {
+	@apply h-full bg-gradient-to-r from-[var(--secondary)] to-[var(--primary)] shadow-[0_0_10px_rgba(90,200,167,0.6)];
+}
+
+/* ---------- Cards Grid ---------- */
+.grid {
+	@apply grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4;
+}
+.card {
+	@apply bg-[#242729] border border-[var(--border)] border-l-[6px] border-l-[var(--accent)] rounded-xl p-5 shadow-[0_6px_16px_var(--shadow)] transition-transform duration-300 ease-in-out;
+}
+.card:hover {
+	@apply -translate-y-[6px] shadow-[0_10px_24px_var(--shadow)] border-l-[var(--primary)];
+}
+.card h3 {
+	@apply m-0 mb-2 text-xl font-semibold text-[var(--primary)];
+}
+.card p {
+	@apply m-1 text-sm text-left text-pretty text-[var(--light-text)];
+}
+
+/* ---------- Lists ---------- */
+ul {
+	@apply m-[0.4em_0_1em_1.2em];
+}
+ul li {
+	@apply mb-[6px];
+}
+
+/* ---------- Footer ---------- */
+footer {
+	@apply mt-10 text-center italic text-[var(--light-text)];
+}
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+	@apply fixed inset-0 bg-[rgba(0,0,0,0.7)] flex justify-center items-center z-[1000];
+}
+.modal-content {
+	@apply bg-[var(--card-bg)] p-5 rounded-lg shadow-[0_5px_15px_rgba(0,0,0,0.5)] max-w-[600px] w-[90%] relative;
+}
+.modal-content p {
+	@apply text-left text-pretty text-[var(--text-light)];
+}
+.close-button {
+	@apply absolute top-[10px] right-[10px] text-2xl font-bold cursor-pointer;
+}
