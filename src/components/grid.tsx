@@ -1,8 +1,9 @@
-import Card, { type CardProps } from "./card.tsx";
+import type { Skill, Strategy } from "@/data/sheet-data.tsx";
+import Card from "./card.tsx";
 
 export type GridProps = {
 	title: string;
-	data: CardProps[];
+	data: (Skill | Strategy)[];
 };
 
 export default function Grid({ title, data }: GridProps) {
@@ -10,14 +11,19 @@ export default function Grid({ title, data }: GridProps) {
 		<>
 			<h2>{title}</h2>
 			<div className="grid">
-				{data.map((s) => (
-					<Card
-						desc={s.desc}
-						descLong={s.descLong}
-						key={s.title}
-						title={s.title}
-					/>
-				))}
+				{data.map((s) => {
+					return (
+						<Card
+							id={s.id}
+							key={s.id}
+							level={s.level}
+							icon={s.icon}
+							summary={s.summary ?? ""}
+							descriptionLong={s.descriptionLong ?? ""}
+							name={s.name ?? ""}
+						/>
+					);
+				})}
 			</div>
 		</>
 	);

@@ -69,7 +69,9 @@ h2 {
 	@apply grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4;
 }
 .card {
-	@apply bg-[#242729] border border-[var(--border)] border-l-[6px] border-l-[var(--accent)] rounded-xl p-5 shadow-[0_6px_16px_var(--shadow)] transition-transform duration-300 ease-in-out;
+	@apply relative bg-[#242729] border border-[var(--border)] border-l-[6px]
+    border-l-[var(--accent)] rounded-xl p-5 shadow-[0_6px_16px_var(--shadow)]
+    transition-transform duration-300 ease-in-out;
 }
 .card:hover {
 	@apply -translate-y-[6px] shadow-[0_10px_24px_var(--shadow)] border-l-[var(--primary)];
@@ -79,6 +81,12 @@ h2 {
 }
 .card p {
 	@apply m-1 text-sm text-left text-pretty text-[var(--light-text)];
+}
+.card-icon {
+	@apply absolute top-[10px] left-[10px] text-2xl font-bold;
+}
+.card-level {
+	@apply absolute top-[10px] right-[10px] text-sm font-bold;
 }
 
 /* ---------- Lists ---------- */

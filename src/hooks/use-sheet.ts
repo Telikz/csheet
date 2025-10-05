@@ -8,14 +8,12 @@ import {
 	sheetDataStorage,
 } from "@/data/sheet-data.tsx";
 
-// Helper functions for generating unique IDs
-const generateStringId = () => Math.random().toString(36).substring(2, 9);
 const generateNumberId = () => Math.floor(Math.random() * 1000000);
 
 // Base query key
 const SHEET_DATA_QUERY_KEY = ["sheetData"];
 
-export function useSheetDataQuery() {
+export function useSheet() {
 	const queryClient = useQueryClient();
 
 	// Query for getting sheet data
@@ -92,7 +90,7 @@ export function useSheetDataQuery() {
 			if (!currentData) throw new Error("No sheet data available");
 
 			const newAttribute: Attribute = {
-				id: generateStringId(),
+				id: generateNumberId(),
 				name,
 				notes: [],
 			};

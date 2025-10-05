@@ -4,23 +4,35 @@ export const sheetDataSchema = z.object({
 	id: z.number(),
 	age: z.number().optional(),
 	username: z.string().optional(),
+	archetype: z.string().optional(),
 	attributes: z.array(
 		z.object({
-			id: z.string().optional(),
+			id: z.number(),
+			icon: z.string().optional(),
 			name: z.string().optional(),
-			notes: z.array(
-				z.object({
-					id: z.string(),
-					note: z.string().optional(),
-				}),
-			),
+			level: z.number().min(0).max(10).optional(),
+			summary: z.string().optional(),
+			descriptionLong: z.string().optional(),
+			descriptionShort: z.string().optional(),
+			notes: z
+				.array(
+					z.object({
+						id: z.number(),
+						note: z.string().optional(),
+					}),
+				)
+				.optional(),
 		}),
 	),
 	skills: z.array(
 		z.object({
 			id: z.number(),
 			name: z.string().optional(),
+			icon: z.string().optional(),
 			level: z.number().min(0).max(10).optional(),
+			summary: z.string().optional(),
+			descriptionLong: z.string().optional(),
+			descriptionShort: z.string().optional(),
 			notes: z
 				.array(
 					z.object({
@@ -35,6 +47,11 @@ export const sheetDataSchema = z.object({
 		z.object({
 			id: z.number(),
 			name: z.string().optional(),
+			icon: z.string().optional(),
+			level: z.number().min(0).max(10).optional(),
+			summary: z.string().optional(),
+			descriptionLong: z.string().optional(),
+			descriptionShort: z.string().optional(),
 			notes: z
 				.array(
 					z.object({

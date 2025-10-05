@@ -1,0 +1,204 @@
+{
+  "id": 1,
+  "age": 26,
+  "username": "Robin Olsen",
+  "archetype": "The Grounded Seeker",
+  "attributes": [
+    {
+      "id": 1,
+      "icon": "💪",
+      "name": "Strength",
+      "level": 5,
+      "summary": "Resilient and determined through any challenge.",
+      "descriptionLong": "I face difficulty with resolve and endurance, applying consistent effort until the work is complete. My strength lies not in force, but in persistence.",
+      "descriptionShort": "Persistent and strong-willed.",
+      "notes": [
+        {
+          "id": 1,
+          "note": "Demonstrates resilience and steady effort in adversity."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "icon": "🤸",
+      "name": "Dexterity",
+      "level": 4,
+      "summary": "Adaptable and responsive, learning to stay flexible under pressure.",
+      "descriptionLong": "I adapt quickly to shifting situations and learn through experience. When tension heightens, I sometimes stiffen, but awareness helps me stay fluid and composed.",
+      "descriptionShort": "Agile and adaptable.",
+      "notes": [
+        {
+          "id": 2,
+          "note": "Adjusts quickly but works on maintaining flow under stress."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "icon": "🛡️",
+      "name": "Constitution",
+      "level": 6,
+      "summary": "Balanced resilience and emotional steadiness.",
+      "descriptionLong": "Physically and mentally, I maintain balance through challenges. My resilience allows me to stay grounded and recover quickly when faced with stress or uncertainty.",
+      "descriptionShort": "Stable and enduring.",
+      "notes": [
+        {
+          "id": 3,
+          "note": "Maintains composure in difficult or draining situations."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "icon": "🧠",
+      "name": "Intelligence",
+      "level": 4,
+      "summary": "Analytical and thoughtful; values clarity and depth.",
+      "descriptionLong": "I think analytically and aim for precise understanding. I prefer reflection and structure, which helps me solve problems thoroughly, though I can move slower under time pressure.",
+      "descriptionShort": "Analytical and careful thinker.",
+      "notes": [
+        {
+          "id": 4,
+          "note": "Uses structured thinking to find effective solutions."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "icon": "🌌",
+      "name": "Wisdom",
+      "level": 5,
+      "summary": "Intuitive and grounded perspective shaped by reflection.",
+      "descriptionLong": "My experiences foster empathy and understanding. I value self-awareness and nuance, often bridging differences through insight and compassionate listening.",
+      "descriptionShort": "Insightful and reflective.",
+      "notes": [
+        {
+          "id": 5,
+          "note": "Sees complex issues with nuance and empathy."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "icon": "✨",
+      "name": "Charisma",
+      "level": 4,
+      "summary": "Warm and approachable; developing confident assertiveness.",
+      "descriptionLong": "I connect naturally with people through warmth and authenticity. Building stronger assertiveness skills helps me express needs clearly and maintain balance in relationships.",
+      "descriptionShort": "Genuine and approachable.",
+      "notes": [
+        {
+          "id": 6,
+          "note": "Friendly and empathetic, gaining confidence in direct expression."
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "name": "Responsibility",
+      "icon": "⚖️",
+      "level": 4,
+      "summary": "Strengthening ownership in daily habits and decisions.",
+      "descriptionLong": "By taking ownership of my actions and staying consistent in small routines, I build reliability and self-trust. Accountability improves my follow-through and focus.",
+      "descriptionShort": "Growing sense of ownership.",
+      "notes": [
+        {
+          "id": 1,
+          "note": "Practices consistency and accountability through daily efforts."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Perspective",
+      "icon": "🔮",
+      "level": 5,
+      "summary": "Curious about diverse viewpoints and values balance in understanding.",
+      "descriptionLong": "I seek to understand multiple perspectives before drawing conclusions. My curiosity and open-mindedness deepen empathy and shape balanced insight.",
+      "descriptionShort": "Open-minded and understanding.",
+      "notes": [
+        {
+          "id": 2,
+          "note": "Approaches the world through curiosity and balance."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Allies & Companions",
+      "icon": "🤝",
+      "level": 4,
+      "summary": "Invested in building trust and openness in relationships.",
+      "descriptionLong": "I cultivate supportive relationships built on shared honesty. Allowing vulnerability strengthens trust and enriches connection with those around me.",
+      "descriptionShort": "Supportive and loyal companion.",
+      "notes": [
+        {
+          "id": 3,
+          "note": "Applies vulnerability to deepen trust with close allies."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Meditation",
+      "icon": "🧘",
+      "level": 5,
+      "summary": "Uses daily mindfulness to stay centered and clear-minded.",
+      "descriptionLong": "Meditation anchors me in calm and clarity. It helps me manage stress, recharge focus, and maintain emotional balance in daily life.",
+      "descriptionShort": "Grounded through mindfulness.",
+      "notes": [
+        {
+          "id": 4,
+          "note": "Meditation reinforces focus and balanced presence."
+        }
+      ]
+    }
+  ],
+  "strategies": [
+    {
+      "id": 1,
+      "name": "Responsibility Path",
+      "icon": "🗺️",
+      "summary": "Own small actions, seek solutions, and reflect for steady growth.",
+      "descriptionLong": "By taking accountability for even the smallest actions, I reduce blame and increase presence. Continuous reflection turns everyday behavior into intentional progress.",
+      "descriptionShort": "Path toward meaningful responsibility.",
+      "notes": [
+        {
+          "id": 1,
+          "note": "Own actions · Find solutions · Reflect for growth."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Perspective Path",
+      "icon": "🗺️",
+      "summary": "Explore varied worldviews and refine inner principles.",
+      "descriptionLong": "Learning from diverse perspectives builds clarity and humility. Every contrast reveals new values and deepens understanding of what guides me.",
+      "descriptionShort": "Path of awareness and insight.",
+      "notes": [
+        {
+          "id": 2,
+          "note": "Engage diversity to reveal truth and strengthen empathy."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Thrive Mode Ritual",
+      "icon": "🌙",
+      "summary": "Daily meditation, mindful breaks, timely work, and calm closure.",
+      "descriptionLong": "A balanced daily rhythm sustains my focus and peace. Centering practices, steady pauses, and early rest keep me in a grounded, thriving state.",
+      "descriptionShort": "Ritual of balance and restoration.",
+      "notes": [
+        {
+          "id": 3,
+          "note": "Simple habits maintain clarity and balance each day."
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,9 @@
-import StatRow, { type StatProps } from "./stat-row.tsx";
+import type { Attribute } from "@/data/sheet-data.tsx";
+import StatRow from "./stat-row.tsx";
 
 type StatTableProps = {
 	title: string;
-	data: StatProps[];
+	data: Attribute[];
 };
 
 export default function StatTable({ title, data }: StatTableProps) {
@@ -20,7 +21,15 @@ export default function StatTable({ title, data }: StatTableProps) {
 				</thead>
 				<tbody>
 					{data.map((s, _idx) => (
-						<StatRow key={s.name} {...s} />
+						<StatRow
+							id={s.id}
+							key={s.id}
+							icon={s.icon ?? ""}
+							name={s.name ?? ""}
+							level={s.level ?? 0}
+							summary={s.summary ?? ""}
+							descriptionLong={s.descriptionLong ?? ""}
+						/>
 					))}
 				</tbody>
 			</table>

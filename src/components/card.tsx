@@ -1,34 +1,26 @@
-import { type KeyboardEvent, useState } from "react";
+import { useState } from "react";
+import type { Skill, Strategy } from "@/data/sheet-data.tsx";
 
-export type CardProps = {
-	title: string;
-	desc: string;
-	descLong: string;
-};
-
-export default function Card({ title, desc, descLong }: CardProps) {
+export default function Card({
+	name,
+	level,
+	icon,
+	summary,
+	descriptionLong,
+}: Skill | Strategy) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleModal = () => {
 		setIsOpen(!isOpen);
 	};
 
-	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-		if (event.key === "Enter" || event.key === " ") {
-			toggleModal();
-		}
-	};
-
 	return (
 		<>
-			<button
-				className="card"
-				onClick={toggleModal}
-				onKeyDown={handleKeyDown}
-				type="button"
-			>
-				<h3>{title}</h3>
-				<p>{desc}</p>
+			<button className="card" onClick={toggleModal} type="button">
+				<p className="card-icon">{icon}</p>
+				<p className="card-level">{level} / 10</p>
+				<h3>{name}</h3>
+				<p>{summary}</p>
 			</button>
 
 			{isOpen && (
@@ -41,8 +33,8 @@ export default function Card({ title, desc, descLong }: CardProps) {
 						>
 							&times;
 						</button>
-						<h2>{title}</h2>
-						<p>{descLong}</p>
+						<h2>{name}</h2>
+						<p>{descriptionLong}</p>
 					</div>
 				</button>
 			)}

@@ -1,16 +1,16 @@
 import { type KeyboardEvent, useState } from "react";
+import type { Attribute } from "@/data/sheet-data.tsx";
 
 const MAX_LEVEL = 10;
 const HUNDRED = 100;
 
-export type StatProps = {
-	icon: string;
-	name: string;
-	level: number;
-	desc: string;
-};
-
-export default function StatRow({ icon, name, level, desc }: StatProps) {
+export default function StatRow({
+	icon,
+	name,
+	level,
+	summary,
+	descriptionLong,
+}: Attribute) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleModal = () => {
@@ -23,7 +23,7 @@ export default function StatRow({ icon, name, level, desc }: StatProps) {
 		}
 	};
 
-	const percent = (level / MAX_LEVEL) * HUNDRED;
+	const percent = ((level ?? 0) / MAX_LEVEL) * HUNDRED;
 	return (
 		<>
 			<tr
@@ -44,7 +44,7 @@ export default function StatRow({ icon, name, level, desc }: StatProps) {
 					</div>
 				</td>
 
-				<td>{desc}</td>
+				<td>{summary}</td>
 			</tr>
 
 			{isOpen && (
@@ -60,7 +60,7 @@ export default function StatRow({ icon, name, level, desc }: StatProps) {
 						<h2>
 							{icon} {name}
 						</h2>
-						<p>{desc}</p>
+						<p>{descriptionLong}</p>
 					</div>
 				</button>
 			)}

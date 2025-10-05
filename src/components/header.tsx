@@ -1,8 +1,10 @@
-const Header = () => (
+import type { SheetData } from "@/data/sheet-data.tsx";
+
+const Header = ({ data }: { data: SheetData }) => (
 	<header>
-		<h1>🌿 Robin Olsen</h1>
+		<h1>{data.username}</h1>
 		<p className="subtitle">
-			Age: 26 · Archetype: <strong>The Balanced Seeker</strong>
+			Age: {data.age} · Archetype: <strong>{data.archetype}</strong>
 		</p>
 	</header>
 );
