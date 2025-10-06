@@ -1,36 +1,33 @@
-// src/hooks/useSheetDataQuery.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-	type Attribute,
+	type CoreAttribute,
+	type FocusArea,
 	type SheetData,
-	type Skill,
 	type Strategy,
+	type SupportingPractice,
 	sheetDataStorage,
 } from "@/data/sheet-data.tsx";
 
 const generateNumberId = () => Math.floor(Math.random() * 1000000);
 
-// Base query key
 const SHEET_DATA_QUERY_KEY = ["sheetData"];
 
 export function useSheet() {
 	const queryClient = useQueryClient();
 
-	// Query for getting sheet data
 	const { data, isLoading, error, refetch } = useQuery({
 		queryKey: SHEET_DATA_QUERY_KEY,
 		queryFn: () => sheetDataStorage.get(),
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
 
-	// Mutation for creating a new sheet
 	const createNewSheetMutation = useMutation({
 		mutationFn: async (id: number = 1): Promise<SheetData> => {
 			const newSheet: SheetData = {
 				id,
-				attributes: [],
-				skills: [],
-				strategies: [],
+				coreAttributes: [],
+				focusAreas: [],
+				supportingPractices: [],
 			};
 
 			sheetDataStorage.set(newSheet);
@@ -41,7 +38,6 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for updating sheet data
 	const updateDataMutation = useMutation({
 		mutationFn: async (newData: SheetData): Promise<SheetData> => {
 			sheetDataStorage.set(newData);
@@ -52,7 +48,6 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for clearing sheet data
 	const clearDataMutation = useMutation({
 		mutationFn: async (): Promise<null> => {
 			sheetDataStorage.clear();
@@ -63,7 +58,6 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for uploading sheet data
 	const uploadDataMutation = useMutation({
 		mutationFn: async (file: File): Promise<SheetData> => {
 			return await sheetDataStorage.upload(file);
@@ -73,7 +67,6 @@ export function useSheet() {
 		},
 	});
 
-	// Function to download sheet data - Fixed to only pass filename
 	const downloadData = (filename?: string) => {
 		if (!data) {
 			throw new Error("No sheet data to download");
@@ -82,22 +75,21 @@ export function useSheet() {
 		sheetDataStorage.download(filename);
 	};
 
-	// Mutation for adding an attribute
-	const addAttributeMutation = useMutation({
+	const addCoreAttributeMutation = useMutation({
 		mutationFn: async (name: string = ""): Promise<SheetData> => {
 			const currentData =
 				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
 			if (!currentData) throw new Error("No sheet data available");
 
-			const newAttribute: Attribute = {
+			const newAttribute: CoreAttribute = {
 				id: generateNumberId(),
 				name,
-				notes: [],
+				level: 0,
 			};
 
 			const updatedData: SheetData = {
 				...currentData,
-				attributes: [...(currentData.attributes || []), newAttribute],
+				coreAttributes: [...(currentData.coreAttributes || []), newAttribute],
 			};
 
 			sheetDataStorage.set(updatedData);
@@ -108,26 +100,25 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for updating an attribute
-	const updateAttributeMutation = useMutation({
+	const updateCoreAttributeMutation = useMutation({
 		mutationFn: async ({
 			index,
 			attribute,
 		}: {
 			index: number;
-			attribute: Partial<Attribute>;
+			attribute: Partial<CoreAttribute>;
 		}): Promise<SheetData> => {
 			const currentData =
 				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
-			if (!currentData || !currentData.attributes)
-				throw new Error("No attributes available");
+			if (!currentData || !currentData.coreAttributes)
+				throw new Error("No coreAttributes available");
 
-			const updatedAttributes = [...currentData.attributes];
+			const updatedAttributes = [...currentData.coreAttributes];
 			updatedAttributes[index] = { ...updatedAttributes[index], ...attribute };
 
 			const updatedData: SheetData = {
 				...currentData,
-				attributes: updatedAttributes,
+				coreAttributes: updatedAttributes,
 			};
 
 			sheetDataStorage.set(updatedData);
@@ -138,21 +129,20 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for removing an attribute
-	const removeAttributeMutation = useMutation({
+	const removeCoreAttributeMutation = useMutation({
 		mutationFn: async (index: number): Promise<SheetData> => {
 			const currentData =
 				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
-			if (!currentData || !currentData.attributes)
-				throw new Error("No attributes available");
+			if (!currentData || !currentData.coreAttributes)
+				throw new Error("No coreAttributes available");
 
-			const updatedAttributes = currentData.attributes.filter(
+			const updatedAttributes = currentData.coreAttributes.filter(
 				(_, i) => i !== index,
 			);
 
 			const updatedData: SheetData = {
 				...currentData,
-				attributes: updatedAttributes,
+				coreAttributes: updatedAttributes,
 			};
 
 			sheetDataStorage.set(updatedData);
@@ -163,108 +153,20 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for adding a skill
-	const addSkillMutation = useMutation({
-		mutationFn: async ({
-			name = "",
-			level = 0,
-		}: {
-			name?: string;
-			level?: number;
-		} = {}): Promise<SheetData> => {
-			const currentData =
-				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
-			if (!currentData) throw new Error("No sheet data available");
-
-			const newSkill: Skill = {
-				id: generateNumberId(),
-				name,
-				level,
-				notes: [],
-			};
-
-			const updatedData: SheetData = {
-				...currentData,
-				skills: [...(currentData.skills || []), newSkill],
-			};
-
-			sheetDataStorage.set(updatedData);
-			return updatedData;
-		},
-		onSuccess: (updatedData) => {
-			queryClient.setQueryData(SHEET_DATA_QUERY_KEY, updatedData);
-		},
-	});
-
-	// Mutation for updating a skill
-	const updateSkillMutation = useMutation({
-		mutationFn: async ({
-			index,
-			skill,
-		}: {
-			index: number;
-			skill: Partial<Skill>;
-		}): Promise<SheetData> => {
-			const currentData =
-				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
-			if (!currentData || !currentData.skills)
-				throw new Error("No skills available");
-
-			const updatedSkills = [...currentData.skills];
-			updatedSkills[index] = { ...updatedSkills[index], ...skill };
-
-			const updatedData: SheetData = {
-				...currentData,
-				skills: updatedSkills,
-			};
-
-			sheetDataStorage.set(updatedData);
-			return updatedData;
-		},
-		onSuccess: (updatedData) => {
-			queryClient.setQueryData(SHEET_DATA_QUERY_KEY, updatedData);
-		},
-	});
-
-	// Mutation for removing a skill
-	const removeSkillMutation = useMutation({
-		mutationFn: async (index: number): Promise<SheetData> => {
-			const currentData =
-				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
-			if (!currentData || !currentData.skills)
-				throw new Error("No skills available");
-
-			const updatedSkills = currentData.skills.filter((_, i) => i !== index);
-
-			const updatedData: SheetData = {
-				...currentData,
-				skills: updatedSkills,
-			};
-
-			sheetDataStorage.set(updatedData);
-			return updatedData;
-		},
-		onSuccess: (updatedData) => {
-			queryClient.setQueryData(SHEET_DATA_QUERY_KEY, updatedData);
-		},
-	});
-
-	// Mutation for adding a strategy - Fixed to use number ID
-	const addStrategyMutation = useMutation({
+	const addFocusAreaMutation = useMutation({
 		mutationFn: async (name: string = ""): Promise<SheetData> => {
 			const currentData =
 				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
 			if (!currentData) throw new Error("No sheet data available");
 
-			const newStrategy: Strategy = {
-				id: generateNumberId(), // Changed from generateStringId to generateNumberId
+			const newFocusArea: FocusArea = {
+				id: generateNumberId(),
 				name,
-				notes: [],
 			};
 
 			const updatedData: SheetData = {
 				...currentData,
-				strategies: [...(currentData.strategies || []), newStrategy],
+				focusAreas: [...(currentData.focusAreas || []), newFocusArea],
 			};
 
 			sheetDataStorage.set(updatedData);
@@ -275,26 +177,25 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for updating a strategy
-	const updateStrategyMutation = useMutation({
+	const updateFocusAreaMutation = useMutation({
 		mutationFn: async ({
 			index,
-			strategy,
+			area,
 		}: {
 			index: number;
-			strategy: Partial<Strategy>;
+			area: Partial<FocusArea>;
 		}): Promise<SheetData> => {
 			const currentData =
 				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
-			if (!currentData || !currentData.strategies)
-				throw new Error("No strategies available");
+			if (!currentData || !currentData.focusAreas)
+				throw new Error("No focus areas available");
 
-			const updatedStrategies = [...currentData.strategies];
-			updatedStrategies[index] = { ...updatedStrategies[index], ...strategy };
+			const updatedAreas = [...currentData.focusAreas];
+			updatedAreas[index] = { ...updatedAreas[index], ...area };
 
 			const updatedData: SheetData = {
 				...currentData,
-				strategies: updatedStrategies,
+				focusAreas: updatedAreas,
 			};
 
 			sheetDataStorage.set(updatedData);
@@ -305,21 +206,123 @@ export function useSheet() {
 		},
 	});
 
-	// Mutation for removing a strategy
-	const removeStrategyMutation = useMutation({
+	const removeFocusAreaMutation = useMutation({
 		mutationFn: async (index: number): Promise<SheetData> => {
 			const currentData =
 				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
-			if (!currentData || !currentData.strategies)
-				throw new Error("No strategies available");
+			if (!currentData || !currentData.focusAreas)
+				throw new Error("No focus areas available");
 
-			const updatedStrategies = currentData.strategies.filter(
+			const updatedAreas = currentData.focusAreas.filter((_, i) => i !== index);
+
+			const updatedData: SheetData = {
+				...currentData,
+				focusAreas: updatedAreas,
+			};
+
+			sheetDataStorage.set(updatedData);
+			return updatedData;
+		},
+		onSuccess: (updatedData) => {
+			queryClient.setQueryData(SHEET_DATA_QUERY_KEY, updatedData);
+		},
+	});
+
+	const addSupportingPracticeMutation = useMutation({
+		mutationFn: async (name: string = ""): Promise<SheetData> => {
+			const currentData =
+				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
+			if (!currentData) throw new Error("No sheet data available");
+
+			const newPractice: SupportingPractice = {
+				id: generateNumberId(),
+				name,
+			};
+
+			const updatedData: SheetData = {
+				...currentData,
+				supportingPractices: [
+					...(currentData.supportingPractices || []),
+					newPractice,
+				],
+			};
+
+			sheetDataStorage.set(updatedData);
+			return updatedData;
+		},
+		onSuccess: (updatedData) => {
+			queryClient.setQueryData(SHEET_DATA_QUERY_KEY, updatedData);
+		},
+	});
+
+	const updateSupportingPracticeMutation = useMutation({
+		mutationFn: async ({
+			index,
+			practice,
+		}: {
+			index: number;
+			practice: Partial<SupportingPractice>;
+		}): Promise<SheetData> => {
+			const currentData =
+				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
+			if (!currentData || !currentData.supportingPractices)
+				throw new Error("No supporting practices available");
+
+			const updatedPractices = [...currentData.supportingPractices];
+			updatedPractices[index] = { ...updatedPractices[index], ...practice };
+
+			const updatedData: SheetData = {
+				...currentData,
+				supportingPractices: updatedPractices,
+			};
+
+			sheetDataStorage.set(updatedData);
+			return updatedData;
+		},
+		onSuccess: (updatedData) => {
+			queryClient.setQueryData(SHEET_DATA_QUERY_KEY, updatedData);
+		},
+	});
+
+	const removeSupportingPracticeMutation = useMutation({
+		mutationFn: async (index: number): Promise<SheetData> => {
+			const currentData =
+				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
+			if (!currentData || !currentData.supportingPractices)
+				throw new Error("No supporting practices available");
+
+			const updatedPractices = currentData.supportingPractices.filter(
 				(_, i) => i !== index,
 			);
 
 			const updatedData: SheetData = {
 				...currentData,
-				strategies: updatedStrategies,
+				supportingPractices: updatedPractices,
+			};
+
+			sheetDataStorage.set(updatedData);
+			return updatedData;
+		},
+		onSuccess: (updatedData) => {
+			queryClient.setQueryData(SHEET_DATA_QUERY_KEY, updatedData);
+		},
+	});
+
+	const updateStrategyObjectMutation = useMutation({
+		mutationFn: async (
+			strategy: Partial<Strategy> | null,
+		): Promise<SheetData> => {
+			const currentData =
+				queryClient.getQueryData<SheetData>(SHEET_DATA_QUERY_KEY);
+			if (!currentData) throw new Error("No sheet data available");
+
+			const newStrategy = strategy
+				? { ...currentData.strategy, ...strategy }
+				: undefined;
+
+			const updatedData: SheetData = {
+				...currentData,
+				strategy: newStrategy,
 			};
 
 			sheetDataStorage.set(updatedData);
@@ -340,15 +343,26 @@ export function useSheet() {
 		clearData: clearDataMutation.mutate,
 		downloadData,
 		uploadData: uploadDataMutation.mutateAsync,
-		addAttribute: addAttributeMutation.mutate,
-		updateAttribute: updateAttributeMutation.mutate,
-		removeAttribute: removeAttributeMutation.mutate,
-		addSkill: addSkillMutation.mutate,
-		updateSkill: updateSkillMutation.mutate,
-		removeSkill: removeSkillMutation.mutate,
-		addStrategy: addStrategyMutation.mutate,
-		updateStrategy: updateStrategyMutation.mutate,
-		removeStrategy: removeStrategyMutation.mutate,
+
+		// Renamed/Updated CoreAttribute Mutations
+		addCoreAttribute: addCoreAttributeMutation.mutate,
+		updateCoreAttribute: updateCoreAttributeMutation.mutate,
+		removeCoreAttribute: removeCoreAttributeMutation.mutate,
+
+		// New FocusArea Mutations
+		addFocusArea: addFocusAreaMutation.mutate,
+		updateFocusArea: updateFocusAreaMutation.mutate,
+		removeFocusArea: removeFocusAreaMutation.mutate,
+
+		// New SupportingPractice Mutations
+		addSupportingPractice: addSupportingPracticeMutation.mutate,
+		updateSupportingPractice: updateSupportingPracticeMutation.mutate,
+		removeSupportingPractice: removeSupportingPracticeMutation.mutate,
+
+		// New Strategy Object Mutation
+		updateStrategyObject: updateStrategyObjectMutation.mutate,
+
+		// Status Flags
 		isCreating: createNewSheetMutation.isPending,
 		isUpdating: updateDataMutation.isPending,
 		isClearing: clearDataMutation.isPending,

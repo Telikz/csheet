@@ -3,36 +3,26 @@
   "age": 26,
   "username": "Robin Olsen",
   "archetype": "The Grounded Seeker",
-  "attributes": [
+  "courseGoal": "Evolve into a balanced, self-assured individual by strengthening consistency, emotional resilience, mindful awareness, and authentic expression.",
+  "coreAttributes": [
     {
       "id": 1,
       "icon": "💪",
       "name": "Strength",
       "level": 5,
       "summary": "Resilient and determined through any challenge.",
-      "descriptionLong": "I face difficulty with resolve and endurance, applying consistent effort until the work is complete. My strength lies not in force, but in persistence.",
-      "descriptionShort": "Persistent and strong-willed.",
-      "notes": [
-        {
-          "id": 1,
-          "note": "Demonstrates resilience and steady effort in adversity."
-        }
-      ]
+      "description": "Faces difficulty with persistence and grounded effort; thrives on steady progress.",
+      "focusArea": false
     },
     {
       "id": 2,
       "icon": "🤸",
       "name": "Dexterity",
       "level": 4,
-      "summary": "Adaptable and responsive, learning to stay flexible under pressure.",
-      "descriptionLong": "I adapt quickly to shifting situations and learn through experience. When tension heightens, I sometimes stiffen, but awareness helps me stay fluid and composed.",
-      "descriptionShort": "Agile and adaptable.",
-      "notes": [
-        {
-          "id": 2,
-          "note": "Adjusts quickly but works on maintaining flow under stress."
-        }
-      ]
+      "summary": "Adaptable and responsive; learning to stay flexible under pressure.",
+      "description": "Quick to adjust to changes, learning to remain fluid when tension rises.",
+      "focusArea": true,
+      "linkedFocusArea": "Presence & Flow"
     },
     {
       "id": 3,
@@ -40,14 +30,8 @@
       "name": "Constitution",
       "level": 6,
       "summary": "Balanced resilience and emotional steadiness.",
-      "descriptionLong": "Physically and mentally, I maintain balance through challenges. My resilience allows me to stay grounded and recover quickly when faced with stress or uncertainty.",
-      "descriptionShort": "Stable and enduring.",
-      "notes": [
-        {
-          "id": 3,
-          "note": "Maintains composure in difficult or draining situations."
-        }
-      ]
+      "description": "Grounded and calm under prolonged stress; recovers quickly from challenges.",
+      "focusArea": false
     },
     {
       "id": 4,
@@ -55,14 +39,9 @@
       "name": "Intelligence",
       "level": 4,
       "summary": "Analytical and thoughtful; values clarity and depth.",
-      "descriptionLong": "I think analytically and aim for precise understanding. I prefer reflection and structure, which helps me solve problems thoroughly, though I can move slower under time pressure.",
-      "descriptionShort": "Analytical and careful thinker.",
-      "notes": [
-        {
-          "id": 4,
-          "note": "Uses structured thinking to find effective solutions."
-        }
-      ]
+      "description": "Processes complex ideas through structure and reflection; seeks to combine thought with timely action.",
+      "focusArea": true,
+      "linkedFocusArea": "Purposeful Discipline"
     },
     {
       "id": 5,
@@ -70,14 +49,8 @@
       "name": "Wisdom",
       "level": 5,
       "summary": "Intuitive and grounded perspective shaped by reflection.",
-      "descriptionLong": "My experiences foster empathy and understanding. I value self-awareness and nuance, often bridging differences through insight and compassionate listening.",
-      "descriptionShort": "Insightful and reflective.",
-      "notes": [
-        {
-          "id": 5,
-          "note": "Sees complex issues with nuance and empathy."
-        }
-      ]
+      "description": "Values empathy and understanding born of lived experience; draws meaning from contrast and nuance.",
+      "focusArea": false
     },
     {
       "id": 6,
@@ -85,120 +58,140 @@
       "name": "Charisma",
       "level": 4,
       "summary": "Warm and approachable; developing confident assertiveness.",
-      "descriptionLong": "I connect naturally with people through warmth and authenticity. Building stronger assertiveness skills helps me express needs clearly and maintain balance in relationships.",
-      "descriptionShort": "Genuine and approachable.",
-      "notes": [
-        {
-          "id": 6,
-          "note": "Friendly and empathetic, gaining confidence in direct expression."
-        }
-      ]
+      "description": "Connects genuinely; learning to express boundaries and opinions clearly.",
+      "focusArea": true,
+      "linkedFocusArea": "Authentic Expression"
     }
   ],
-  "skills": [
+  "focusAreas": [
     {
       "id": 1,
-      "name": "Responsibility",
-      "icon": "⚖️",
-      "level": 4,
-      "summary": "Strengthening ownership in daily habits and decisions.",
-      "descriptionLong": "By taking ownership of my actions and staying consistent in small routines, I build reliability and self-trust. Accountability improves my follow-through and focus.",
-      "descriptionShort": "Growing sense of ownership.",
-      "notes": [
-        {
-          "id": 1,
-          "note": "Practices consistency and accountability through daily efforts."
-        }
-      ]
+      "name": "Presence & Flow",
+      "icon": "🌊",
+      "theme": "From control to embodied awareness",
+      "attributeLink": "Dexterity",
+      "purpose": "To respond fluidly to challenges with awareness instead of tension.",
+      "coreChallenge": "Overthinking or freezing during stress.",
+      "keyPractices": [
+        "Daily breathwork and somatic grounding",
+        "Regular digital breaks to reset attention"
+      ],
+      "growthIndicator": "Able to shift from reactivity to grounded calm within moments."
     },
     {
       "id": 2,
-      "name": "Perspective",
-      "icon": "🔮",
-      "level": 5,
-      "summary": "Curious about diverse viewpoints and values balance in understanding.",
-      "descriptionLong": "I seek to understand multiple perspectives before drawing conclusions. My curiosity and open-mindedness deepen empathy and shape balanced insight.",
-      "descriptionShort": "Open-minded and understanding.",
-      "notes": [
-        {
-          "id": 2,
-          "note": "Approaches the world through curiosity and balance."
-        }
-      ]
+      "name": "Authentic Expression",
+      "icon": "🔥",
+      "theme": "From silence to confident voice",
+      "attributeLink": "Charisma",
+      "purpose": "To speak truth clearly and compassionately.",
+      "coreChallenge": "Avoiding emotional honesty out of fear of conflict.",
+      "keyPractices": [
+        "Weekly reflection on assertive communication",
+        "Speak one truth daily with mindful tone"
+      ],
+      "growthIndicator": "Communication feels natural, direct, and kind."
     },
     {
       "id": 3,
-      "name": "Allies & Companions",
-      "icon": "🤝",
-      "level": 4,
-      "summary": "Invested in building trust and openness in relationships.",
-      "descriptionLong": "I cultivate supportive relationships built on shared honesty. Allowing vulnerability strengthens trust and enriches connection with those around me.",
-      "descriptionShort": "Supportive and loyal companion.",
-      "notes": [
-        {
-          "id": 3,
-          "note": "Applies vulnerability to deepen trust with close allies."
-        }
-      ]
+      "name": "Purposeful Discipline",
+      "icon": "⚖️",
+      "theme": "From effort to integrated consistency",
+      "attributeLink": "Intelligence",
+      "purpose": "To turn structure into self-trust and follow-through.",
+      "coreChallenge": "Difficulty maintaining focus and routine when motivation dips.",
+      "keyPractices": [
+        "Morning habit tracking for three priorities",
+        "Evening reflection and intention review"
+      ],
+      "growthIndicator": "Habits sustain progress without strain; structure feels natural."
     },
     {
       "id": 4,
-      "name": "Meditation",
-      "icon": "🧘",
-      "level": 5,
-      "summary": "Uses daily mindfulness to stay centered and clear-minded.",
-      "descriptionLong": "Meditation anchors me in calm and clarity. It helps me manage stress, recharge focus, and maintain emotional balance in daily life.",
-      "descriptionShort": "Grounded through mindfulness.",
-      "notes": [
-        {
-          "id": 4,
-          "note": "Meditation reinforces focus and balanced presence."
-        }
-      ]
+      "name": "Connection & Belonging",
+      "icon": "🤝",
+      "theme": "From guardedness to shared trust",
+      "attributeLink": "Wisdom",
+      "purpose": "To build mutual trust through openness and presence.",
+      "coreChallenge": "Hesitation to rely on others or share vulnerability.",
+      "keyPractices": [
+        "Share one authentic feeling with a trusted ally each week",
+        "Engage in intentional listening without offering fixes"
+      ],
+      "growthIndicator": "Relationships feel emotionally reciprocal and supportive."
     }
   ],
-  "strategies": [
+  "supportingPractices": [
     {
       "id": 1,
-      "name": "Responsibility Path",
-      "icon": "🗺️",
-      "summary": "Own small actions, seek solutions, and reflect for steady growth.",
-      "descriptionLong": "By taking accountability for even the smallest actions, I reduce blame and increase presence. Continuous reflection turns everyday behavior into intentional progress.",
-      "descriptionShort": "Path toward meaningful responsibility.",
-      "notes": [
-        {
-          "id": 1,
-          "note": "Own actions · Find solutions · Reflect for growth."
-        }
-      ]
+      "name": "Meditation",
+      "icon": "🧘",
+      "frequency": "Daily",
+      "purpose": "Stay centered, calm, and aware."
     },
     {
       "id": 2,
-      "name": "Perspective Path",
-      "icon": "🗺️",
-      "summary": "Explore varied worldviews and refine inner principles.",
-      "descriptionLong": "Learning from diverse perspectives builds clarity and humility. Every contrast reveals new values and deepens understanding of what guides me.",
-      "descriptionShort": "Path of awareness and insight.",
-      "notes": [
-        {
-          "id": 2,
-          "note": "Engage diversity to reveal truth and strengthen empathy."
-        }
-      ]
+      "name": "Journaling & Reflection",
+      "icon": "📓",
+      "frequency": "3–4 times per week",
+      "purpose": "Track internal shifts and reinforce conscious learning."
     },
     {
       "id": 3,
-      "name": "Thrive Mode Ritual",
+      "name": "Strength Training & Movement",
+      "icon": "🏋️",
+      "frequency": "4–5 times per week",
+      "purpose": "Transform physical discipline into mental resilience."
+    },
+    {
+      "id": 4,
+      "name": "Community & Connection",
+      "icon": "🤝",
+      "frequency": "Weekly",
+      "purpose": "Nurture relationships that reflect shared growth and trust."
+    },
+    {
+      "id": 5,
+      "name": "Digital Sabbath",
       "icon": "🌙",
-      "summary": "Daily meditation, mindful breaks, timely work, and calm closure.",
-      "descriptionLong": "A balanced daily rhythm sustains my focus and peace. Centering practices, steady pauses, and early rest keep me in a grounded, thriving state.",
-      "descriptionShort": "Ritual of balance and restoration.",
-      "notes": [
-        {
-          "id": 3,
-          "note": "Simple habits maintain clarity and balance each day."
-        }
-      ]
+      "frequency": "Once weekly",
+      "purpose": "Create space for stillness, presence, and resetting attention."
     }
-  ]
+  ],
+  "strategy": {
+    "name": "The Grounded Growth Path",
+    "icon": "🗺️",
+    "theme": "Balance • Presence • Purposeful Action",
+    "yearlyGoals": [
+      "Cultivate full self-ownership and resilience through consistent habits.",
+      "Develop confident communication grounded in authentic values.",
+      "Establish a sustainable rhythm balancing action, rest, and reflection."
+    ],
+    "quarterlyGoals": {
+      "Q1": "Clarify purpose and refine daily systems for accountability.",
+      "Q2": "Strengthen adaptability and calm responsiveness in pressure situations.",
+      "Q3": "Expand relational trust through authentic expression.",
+      "Q4": "Reflect, integrate, and prepare for the next growth cycle."
+    },
+    "monthlyGoals": [
+      "Introduce or refine one supportive habit each month.",
+      "Conduct a written review to track growth in two focus areas.",
+      "Engage in one new learning or community experience monthly."
+    ],
+    "weeklyGoals": [
+      "Complete a weekly reflection and intention reset.",
+      "Share one authentic thought or request with someone close.",
+      "Exercise or move with mindful presence at least four days per week.",
+      "Dedicate one rest day for stillness and recalibration."
+    ],
+    "dailyGoals": [
+      "Start with 10 minutes of meditation or deep breathing.",
+      "Set three clear intentions for the day.",
+      "Take mindful pauses throughout work periods.",
+      "Reflect with gratitude before rest."
+    ]
+  },
+  "whereIAmNow": "Grounded and reflective, yet still learning to balance presence with action and self-expression with calm.",
+  "whereIWantToBe": "Fully integrated — calm and confident, consistent in habits, expressive without fear, and aligned with purpose."
+
 }
