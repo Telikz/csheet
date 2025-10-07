@@ -10,7 +10,7 @@ const FocusAreas: React.FC<FocusAreasProps> = ({ focusAreas }) => {
 
 	return (
 		<div className="space-y-6 bg-slate-800 p-6 rounded-lg border border-slate-700 shadow-xl">
-			<h3 className="text-2xl font-bold text-white">Focus Areas</h3>
+			<h3 className="text-3xl font-bold text-white">Focus Areas</h3>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 				{focusAreas.map((area) => (
 					<div
@@ -20,8 +20,7 @@ const FocusAreas: React.FC<FocusAreasProps> = ({ focusAreas }) => {
 						<div className="flex items-start space-x-4">
 							<span className="text-4xl">{area.icon}</span>
 							<div>
-								<h4 className="text-xl font-bold text-white">{area.name}</h4>
-								<p className="text-sm text-indigo-400 italic">"{area.theme}"</p>
+								<h4 className="text-3xl font-bold text-white">{area.name}</h4>
 							</div>
 						</div>
 						<div className="mt-4 space-y-4 flex-grow">
@@ -65,7 +64,7 @@ const FocusAreas: React.FC<FocusAreasProps> = ({ focusAreas }) => {
 						</div>
 						<div className="mt-6 pt-4 border-t border-slate-700">
 							<p className="text-sm text-teal-400 flex items-start">
-								<span className="font-semibold mr-2">Growth:</span>
+								<span className="font-semibold mr-2">Growth Indicators:</span>
 								<span>{area.growthIndicator}</span>
 							</p>
 						</div>

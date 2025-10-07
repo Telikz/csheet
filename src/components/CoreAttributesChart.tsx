@@ -43,11 +43,11 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 
 	return (
 		<div className="bg-slate-800 p-6 rounded-lg border border-slate-700 shadow-xl">
-			<h3 className="text-2xl font-bold text-white mb-6">Core Attributes</h3>
+			<h3 className="text-3xl font-bold text-white mb-6">Core Attributes</h3>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-				<div className="h-80 md:h-96">
+				<div className="h-96">
 					<ResponsiveContainer width="100%" height="100%">
-						<RadarChart cx="50%" cy="50%" outerRadius="80%" data={chartData}>
+						<RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}>
 							<PolarGrid stroke="#475569" />
 							<PolarAngleAxis
 								dataKey="subject"
@@ -85,7 +85,9 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 									<span className="text-sm text-slate-400">/10</span>
 								</div>
 							</div>
-							<p className="text-sm text-slate-400 mt-2 pl-9">{attr.summary}</p>
+							<p className="text-sm text-left text-slate-400 mt-2">
+								{attr.summary}
+							</p>
 						</button>
 					))}
 				</div>
