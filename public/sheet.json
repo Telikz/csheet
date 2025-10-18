@@ -28,7 +28,7 @@
     },
     {
       "id": 3,
-      "icon": "🛡️",
+      "icon": "🛡",
       "name": "Constitution",
       "level": 8.0,
       "summary": "I handle stress much better now, though I sometimes ignore early signs of overload until I crash.",
@@ -97,7 +97,7 @@
     {
       "id": 3,
       "name": "Purposeful Discipline",
-      "icon": "⚖️",
+      "icon": "⚖",
       "theme": "From reactive effort to steady, sustainable consistency",
       "attributeLink": "Intelligence",
       "purpose": "To build self-trust through steady, realistic habits.",
@@ -111,7 +111,7 @@
     {
       "id": 4,
       "name": "Fitness & Flexibility",
-      "icon": "🏃‍♂️",
+      "icon": "🏃",
       "theme": "From effort to flexible, sustainable movement",
       "attributeLink": "Strength",
       "purpose": "To increase overall fitness, agility, and endurance in a balanced way.",
@@ -144,7 +144,7 @@
     {
       "id": 3,
       "name": "Strength Training",
-      "icon": "🏋️",
+      "icon": "🏋",
       "purpose": "To build physical and mental resilience, balanced with rest.",
       "frequency": "4–5 times per week",
       "notes": []
@@ -152,7 +152,7 @@
     {
       "id": 4,
       "name": "10,000 Steps Daily",
-      "icon": "🚶‍♂️",
+      "icon": "🚶",
       "purpose": "To stay active, support recovery, and improve cardiovascular health.",
       "frequency": "Daily",
       "notes": []
@@ -181,7 +181,7 @@
   ],
   "strategy": {
     "name": "Strategy for Growth",
-    "icon": "🗺️",
+    "icon": "🗺",
     "theme": "Awareness • Responsibility • Consistency",
     "yearlyGoals": [
       "Live in alignment with my values: calm, authentic, balanced, and physically strong."

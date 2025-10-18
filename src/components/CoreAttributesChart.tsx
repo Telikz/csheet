@@ -7,10 +7,17 @@ import {
 	ResponsiveContainer,
 	Tooltip,
 } from "recharts";
+import EditModal from "@/components/EditModal.tsx";
 import type { CoreAttribute } from "@/data/sheet-data.tsx";
 
 interface CoreAttributesChartProps {
 	attributes: CoreAttribute[];
+	sheetId: number;
+	onAddAttribute: () => void;
+	onRemoveAttribute: (index: number) => void;
+	onUpdateAttribute: (index: number, attribute: Partial<CoreAttribute>) => void;
+	isUpdating?: boolean;
+	isEditMode?: boolean;
 }
 
 interface CustomTooltipProps {
@@ -32,8 +39,66 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 
 const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 	attributes,
+	onAddAttribute,
+	onRemoveAttribute,
+	onUpdateAttribute,
+	isUpdating = false,
+	isEditMode = true,
 }) => {
 	const [hoveredAttribute, setHoveredAttribute] = useState<string | null>(null);
+	const [editingIndex, setEditingIndex] = useState<number | null>(null);
+	const [formData, setFormData] = useState({
+		name: "",
+		level: 0,
+		icon: "",
+		summary: "",
+	});
+
+	const openEdit = (index: number) => {
+		const attr = attributes[index];
+		setFormData({
+			name: attr.name || "",
+			level: attr.level || 0,
+			icon: attr.icon || "",
+			summary: attr.summary || "",
+		});
+		setEditingIndex(index);
+	};
+
+	const handleSave = () => {
+		if (editingIndex !== null) {
+			onUpdateAttribute(editingIndex, {
+				name: formData.name,
+				level: formData.level,
+				icon: formData.icon,
+				summary: formData.summary,
+			});
+			setEditingIndex(null);
+		}
+	};
+
+	if (attributes.length === 0) {
+		return (
+			<div className="card">
+				<div className="section-header mb-8">
+					<span className="section-icon">💪</span>
+					<h3 className="section-title">Core Attributes</h3>
+				</div>
+				<div className="text-center py-12 space-y-4">
+					<p className="text-slate-400">
+						No core attributes yet. Add your first attribute to get started!
+					</p>
+					<button
+						type="button"
+						onClick={onAddAttribute}
+						className="btn-primary btn-icon justify-center inline-flex"
+					>
+						<span>✨</span> Add Attribute
+					</button>
+				</div>
+			</div>
+		);
+	}
 
 	const chartData = attributes.map((attr) => ({
 		subject: attr.name,
@@ -42,57 +107,150 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 	}));
 
 	return (
-		<div className="bg-slate-800 p-6 rounded-lg border border-slate-700 shadow-xl">
-			<h3 className="text-3xl font-bold text-white mb-6">Core Attributes</h3>
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-				<div className="h-96">
-					<ResponsiveContainer width="100%" height="100%">
-						<RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}>
-							<PolarGrid stroke="#475569" />
-							<PolarAngleAxis
-								dataKey="subject"
-								tick={{ fill: "#cbd5e1", fontSize: 14 }}
-							/>
-							<Radar
-								name="Level"
-								dataKey="level"
-								stroke="#818cf8"
-								fill="#4f46e5"
-								fillOpacity={0.6}
-							/>
-							<Tooltip content={<CustomTooltip />} />
-						</RadarChart>
-					</ResponsiveContainer>
+		<>
+			<div className="card">
+				<div className="section-header mb-8">
+					<span className="section-icon">💪</span>
+					<h3 className="section-title">Core Attributes</h3>
 				</div>
-				<div className="space-y-4">
-					{attributes.map((attr) => (
-						<button
-							key={attr.id}
-							type={"button"}
-							className={`p-4 w-full rounded-lg transition-all duration-300 ${hoveredAttribute === attr.name ? "bg-slate-700/80" : "bg-slate-700/40"}`}
-							onMouseEnter={() => setHoveredAttribute(attr.name ?? "")}
-							onMouseLeave={() => setHoveredAttribute(null)}
-						>
-							<div className="flex justify-between items-center">
-								<div className="flex items-center space-x-3">
-									<span className="text-2xl">{attr.icon}</span>
-									<h4 className="text-lg font-semibold text-white">
-										{attr.name}
-									</h4>
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+					<div className="h-96">
+						<ResponsiveContainer width="100%" height="100%">
+							<RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}>
+								<PolarGrid stroke="#475569" />
+								<PolarAngleAxis
+									dataKey="subject"
+									tick={{ fill: "#cbd5e1", fontSize: 14 }}
+								/>
+								<Radar
+									name="Level"
+									dataKey="level"
+									stroke="#818cf8"
+									fill="#4f46e5"
+									fillOpacity={0.6}
+								/>
+								<Tooltip content={<CustomTooltip />} />
+							</RadarChart>
+						</ResponsiveContainer>
+					</div>
+					<div className="space-y-4">
+						{attributes.map((attr, index) => (
+							<button
+								type="button"
+								key={attr.id}
+								className={`p-4 w-full rounded-lg transition-all duration-300 group text-left ${hoveredAttribute === attr.name ? "bg-slate-700/80" : "bg-slate-700/40"}`}
+								onMouseEnter={() => setHoveredAttribute(attr.name ?? "")}
+								onMouseLeave={() => setHoveredAttribute(null)}
+								onClick={() => isEditMode && openEdit(index)}
+								disabled={!isEditMode}
+							>
+								<div className="flex justify-between items-start">
+									<div className="flex-1">
+										<div className="flex justify-between items-center">
+											<div className="flex items-center space-x-3">
+												<span className="text-2xl">{attr.icon}</span>
+												<h4 className="text-lg font-semibold text-white">
+													{attr.name}
+												</h4>
+											</div>
+											<div className="text-xl font-bold text-indigo-300">
+												{attr.level}
+												<span className="text-sm text-slate-400">/10</span>
+											</div>
+										</div>
+										<p className="text-sm text-slate-400 mt-2">
+											{attr.summary}
+										</p>
+									</div>
+									{isEditMode && (
+										<button
+											type="button"
+											onClick={(e) => {
+												e.stopPropagation();
+												onRemoveAttribute(index);
+											}}
+											className="ml-2 text-red-400 hover:text-red-300 transition-colors opacity-0 group-hover:opacity-100"
+											title="Delete attribute"
+										>
+											<svg
+												className="w-5 h-5"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<title>Delete</title>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+												/>
+											</svg>
+										</button>
+									)}
 								</div>
-								<div className="text-xl font-bold text-indigo-300">
-									{attr.level}
-									<span className="text-sm text-slate-400">/10</span>
-								</div>
-							</div>
-							<p className="text-sm text-left text-slate-400 mt-2">
-								{attr.summary}
-							</p>
-						</button>
-					))}
+							</button>
+						))}
+						{isEditMode && (
+							<button
+								type="button"
+								onClick={onAddAttribute}
+								className="btn-primary btn-icon justify-center w-full"
+							>
+								<span>➕</span> Add Another
+							</button>
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
+
+			<EditModal
+				isOpen={editingIndex !== null}
+				title={`Edit ${editingIndex !== null ? attributes[editingIndex]?.name : "Attribute"}`}
+				fields={[
+					{
+						name: "name",
+						label: "Attribute Name",
+						value: formData.name,
+						onChange: (value) =>
+							setFormData({ ...formData, name: String(value) }),
+						placeholder: "e.g., Strength, Intelligence",
+					},
+					{
+						name: "icon",
+						label: "Icon (Emoji)",
+						value: formData.icon,
+						onChange: (value) =>
+							setFormData({ ...formData, icon: String(value) }),
+						placeholder: "e.g., 💪, 🧠",
+					},
+					{
+						name: "level",
+						label: "Level (0-10)",
+						type: "number",
+						value: formData.level,
+						onChange: (value) =>
+							setFormData({
+								...formData,
+								level: Math.min(10, Math.max(0, parseInt(String(value), 10))),
+							}),
+						placeholder: "0-10",
+					},
+					{
+						name: "summary",
+						label: "Summary",
+						type: "textarea",
+						value: formData.summary,
+						onChange: (value) =>
+							setFormData({ ...formData, summary: String(value) }),
+						placeholder: "Brief description of this attribute...",
+					},
+				]}
+				onSave={handleSave}
+				onCancel={() => setEditingIndex(null)}
+				isLoading={isUpdating}
+			/>
+		</>
 	);
 };
 
