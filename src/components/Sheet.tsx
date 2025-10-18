@@ -1,13 +1,53 @@
 import type React from "react";
+import { useEffect, useState } from "react";
 import CoreAttributesChart from "@/components/CoreAttributesChart.tsx";
 import FocusAreas from "@/components/FocusAreas.tsx";
 import Header from "@/components/Header.tsx";
+import Onboarding from "@/components/Onboarding.tsx";
+import SheetManagerModal from "@/components/SheetManagerModal.tsx";
 import StrategyComponent from "@/components/Strategy.tsx";
 import SupportingPractices from "@/components/SupportingPractices.tsx";
+import type { SheetData } from "@/data/sheet-data.tsx";
 import { useSheet } from "@/hooks/use-sheet.ts";
 
 const Sheet: React.FC = () => {
-	const { data: userData, isLoading, error } = useSheet();
+	const {
+		sheets,
+		isLoading,
+		error,
+		addSheet,
+		deleteSheet,
+		updateHeader,
+		addCoreAttribute,
+		removeCoreAttribute,
+		updateCoreAttribute,
+		addFocusArea,
+		removeFocusArea,
+		updateFocusArea,
+		addSupportingPractice,
+		removeSupportingPractice,
+		updateSupportingPractice,
+		updateStrategyObject,
+		uploadData,
+		isUpdating,
+	} = useSheet();
+	const [selectedSheetId, setSelectedSheetId] = useState<number | null>(null);
+	const [showOnboarding, setShowOnboarding] = useState(false);
+	const [showSheetManager, setShowSheetManager] = useState(false);
+	const [isEditMode, setIsEditMode] = useState(true);
+
+	useEffect(() => {
+		if (sheets && sheets.length > 0 && selectedSheetId === null) {
+			setSelectedSheetId(sheets[0].id);
+		}
+		if (
+			selectedSheetId !== null &&
+			sheets &&
+			!sheets.some((s) => s.id === selectedSheetId)
+		) {
+			setSelectedSheetId(sheets[0]?.id ?? null);
+		}
+	}, [sheets, selectedSheetId]);
 
 	if (isLoading) {
 		return <div>Loading...</div>;
@@ -17,24 +57,183 @@ const Sheet: React.FC = () => {
 		return <div>Error: {error.message}</div>;
 	}
 
-	if (!userData) {
-		return <div>No sheet data available.</div>;
+	const currentSheet = sheets?.find((s) => s.id === selectedSheetId);
+
+	if (!currentSheet || showOnboarding) {
+		return (
+			<Onboarding
+				sheets={sheets as SheetData[]}
+				selectedSheetId={selectedSheetId}
+				setSelectedSheetId={(id) => {
+					setSelectedSheetId(id);
+					setShowOnboarding(false);
+				}}
+				addSheet={addSheet}
+				deleteSheet={deleteSheet}
+				uploadData={uploadData}
+			/>
+		);
 	}
 
 	return (
-		<div className="bg-slate-900 text-slate-300 min-h-screen font-sans antialiased">
+		<div className="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-slate-300 min-h-screen font-sans antialiased">
+			<div className="sticky top-0 z-40 bg-gradient-to-b from-slate-900/95 to-slate-900/80 backdrop-blur-sm border-b border-slate-700/50 shadow-lg">
+				<div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+					<div className="flex items-center gap-3">
+						<div className="text-2xl">🎮</div>
+						<div>
+							<h1 className="text-xl font-bold text-white">
+								{currentSheet?.username || "Character Sheet"}
+							</h1>
+							<p className="text-xs text-slate-400">ID: {currentSheet?.id}</p>
+						</div>
+					</div>
+					<button
+						type="button"
+						onClick={() => setShowSheetManager(true)}
+						className="inline-flex items-center gap-2 btn-secondary"
+					>
+						<svg
+							className="w-4 h-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<title>Manage Sheets</title>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M4 6h16M4 12h16M4 18h16"
+							/>
+						</svg>
+						<span>Manage</span>
+					</button>
+				</div>
+			</div>
+
 			<main className="max-w-[1800px] mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-				<Header userData={userData} />
+				<Header
+					userData={currentSheet}
+					onUpdate={(updates) =>
+						updateHeader({ sheetId: currentSheet.id, updates })
+					}
+					isUpdating={isUpdating}
+					isEditMode={isEditMode}
+				/>
 
-				<CoreAttributesChart attributes={userData.coreAttributes ?? []} />
+				<CoreAttributesChart
+					attributes={currentSheet.coreAttributes ?? []}
+					sheetId={currentSheet.id}
+					onAddAttribute={() =>
+						addCoreAttribute({
+							sheetId: currentSheet.id,
+							name: "New Attribute",
+						})
+					}
+					onRemoveAttribute={(index) =>
+						removeCoreAttribute({ sheetId: currentSheet.id, index })
+					}
+					onUpdateAttribute={(index, attribute) =>
+						updateCoreAttribute({ sheetId: currentSheet.id, index, attribute })
+					}
+					isUpdating={isUpdating}
+					isEditMode={isEditMode}
+				/>
 
-				<FocusAreas focusAreas={userData.focusAreas ?? []} />
+				<FocusAreas
+					focusAreas={currentSheet.focusAreas ?? []}
+					onAddArea={() =>
+						addFocusArea({ sheetId: currentSheet.id, name: "New Focus Area" })
+					}
+					onRemoveArea={(index) =>
+						removeFocusArea({ sheetId: currentSheet.id, index })
+					}
+					onUpdateArea={(index, area) =>
+						updateFocusArea({ sheetId: currentSheet.id, index, area })
+					}
+					isUpdating={isUpdating}
+					isEditMode={isEditMode}
+				/>
 
-				<SupportingPractices practices={userData.supportingPractices ?? []} />
-				{userData.strategy && (
-					<StrategyComponent strategy={userData.strategy} />
+				<SupportingPractices
+					practices={currentSheet.supportingPractices ?? []}
+					onAddPractice={() =>
+						addSupportingPractice({
+							sheetId: currentSheet.id,
+							name: "New Practice",
+						})
+					}
+					onRemovePractice={(index) =>
+						removeSupportingPractice({ sheetId: currentSheet.id, index })
+					}
+					onUpdatePractice={(index, practice) =>
+						updateSupportingPractice({
+							sheetId: currentSheet.id,
+							index,
+							practice,
+						})
+					}
+					isUpdating={isUpdating}
+					isEditMode={isEditMode}
+				/>
+				{currentSheet.strategy ? (
+					<StrategyComponent
+						strategy={currentSheet.strategy}
+						onUpdateStrategy={(strategy) =>
+							updateStrategyObject({ sheetId: currentSheet.id, strategy })
+						}
+						isUpdating={isUpdating}
+						isEditMode={isEditMode}
+					/>
+				) : (
+					<div className="card text-center py-12 space-y-4">
+						<div className="section-header justify-center mb-4">
+							<span className="section-icon">🎯</span>
+						</div>
+						<h3 className="section-title">Strategy</h3>
+						<p className="text-slate-400">
+							No strategy yet. Create one to set your goals!
+						</p>
+						<button
+							type="button"
+							onClick={() =>
+								isEditMode &&
+								updateStrategyObject({
+									sheetId: currentSheet.id,
+									strategy: { name: "My Strategy", theme: "Growth" },
+								})
+							}
+							disabled={!isEditMode}
+							className="btn-primary btn-icon justify-center inline-flex"
+						>
+							<span>✨</span> Create Strategy
+						</button>
+					</div>
 				)}
 			</main>
+
+			<SheetManagerModal
+				isOpen={showSheetManager}
+				sheets={sheets as SheetData[]}
+				selectedSheetId={selectedSheetId}
+				isEditMode={isEditMode}
+				onSelectSheet={(id) => {
+					setSelectedSheetId(id);
+					setShowSheetManager(false);
+				}}
+				onAddSheet={() => {
+					addSheet({ username: "New Character" });
+				}}
+				onDeleteSheet={(id) => {
+					deleteSheet(id);
+				}}
+				onUploadSheet={(file) => {
+					uploadData(file);
+				}}
+				onToggleEditMode={() => setIsEditMode(!isEditMode)}
+				onClose={() => setShowSheetManager(false)}
+			/>
 		</div>
 	);
 };

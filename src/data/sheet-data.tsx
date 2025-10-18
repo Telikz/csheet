@@ -87,43 +87,131 @@ export type FocusArea = z.infer<typeof focusAreaSchema>;
 export type SupportingPractice = z.infer<typeof supportingPracticeSchema>;
 export type Strategy = z.infer<typeof strategySchema>;
 
-// --- Storage Logic (Unchanged, but now using the new Schema) ---
+const SHEET_KEY_PREFIX = "csheet-";
+const SHEET_IDS_KEY = "csheet-ids";
 
-const STORAGE_KEY = "sheet-data";
+const getSheetKey = (id: number) => `${SHEET_KEY_PREFIX}${id}`;
+
+// Helper to get all sheet IDs
+const getSheetIds = (): number[] => {
+	const ids = localStorage.getItem(SHEET_IDS_KEY);
+	if (!ids) return [];
+	try {
+		return JSON.parse(ids) as number[];
+	} catch {
+		return [];
+	}
+};
+
+// Helper to set all sheet IDs
+const setSheetIds = (ids: number[]): void => {
+	localStorage.setItem(SHEET_IDS_KEY, JSON.stringify(ids));
+};
+
+// Migration function to handle old single-sheet data
+const migrateOldData = (): void => {
+	const oldKey = "sheet-data";
+	const oldData = localStorage.getItem(oldKey);
+
+	if (oldData) {
+		try {
+			const parsedData = JSON.parse(oldData);
+			const validatedData = sheetDataSchema.parse(parsedData);
+
+			// Use the existing ID or generate a new one
+			const id = validatedData.id || 1;
+			const newKey = getSheetKey(id);
+
+			// Save to new key
+			localStorage.setItem(newKey, JSON.stringify(validatedData));
+
+			// Update ID list
+			setSheetIds([id]);
+
+			// Remove old key
+			localStorage.removeItem(oldKey);
+			console.log("Migrated old single-sheet data to new multi-sheet format.");
+		} catch (error) {
+			console.error("Failed to migrate old sheet data:", error);
+			localStorage.removeItem(oldKey);
+		}
+	}
+};
+
+// Run migration once on load
+migrateOldData();
 
 export const sheetDataStorage = {
-	get(): SheetData | null {
+	getAll(): SheetData[] {
+		const ids = getSheetIds();
+		const sheets: SheetData[] = [];
+
+		for (const id of ids) {
+			const sheet = this.get(id);
+			if (sheet) {
+				sheets.push(sheet);
+			} else {
+				// Clean up invalid ID if data is missing
+				this.deleteId(id);
+			}
+		}
+
+		return sheets;
+	},
+
+	get(id: number): SheetData | null {
 		try {
-			const data = localStorage.getItem(STORAGE_KEY);
+			const data = localStorage.getItem(getSheetKey(id));
 			if (!data) return null;
 
 			const parsedData = JSON.parse(data);
 			return sheetDataSchema.parse(parsedData);
 		} catch (_error) {
-			// console.error("Error retrieving sheet data:", error);
+			// console.error(`Error retrieving sheet data for ID ${id}:`, error);
+			this.deleteId(id); // Clean up invalid data/key
 			return null;
 		}
 	},
 
 	set(data: SheetData): void {
 		try {
-			// Validation ensures the data written conforms to the new schema
 			const validatedData = sheetDataSchema.parse(data);
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(validatedData));
+			const key = getSheetKey(validatedData.id);
+			localStorage.setItem(key, JSON.stringify(validatedData));
+
+			// Ensure ID is tracked
+			const ids = getSheetIds();
+			if (!ids.includes(validatedData.id)) {
+				setSheetIds([...ids, validatedData.id]);
+			}
 		} catch (_error) {
 			// console.error("Error saving sheet data:", error);
 			throw new Error("Invalid sheet data format");
 		}
 	},
 
-	clear(): void {
-		localStorage.removeItem(STORAGE_KEY);
+	delete(id: number): void {
+		localStorage.removeItem(getSheetKey(id));
+		this.deleteId(id);
 	},
 
-	download(filename: string = "sheet-data.json"): void {
-		const data = this.get();
+	deleteId(id: number): void {
+		const ids = getSheetIds();
+		setSheetIds(ids.filter((i) => i !== id));
+	},
+
+	clearAll(): void {
+		const ids = getSheetIds();
+		for (const id of ids) {
+			localStorage.removeItem(getSheetKey(id));
+		}
+		localStorage.removeItem(SHEET_IDS_KEY);
+	},
+
+	download(id: number, filename: string = `sheet-data-${id}.json`): void {
+		const data = this.get(id);
 		if (!data) {
-			throw new Error("No sheet data to download");
+			throw new Error(`No sheet data found for ID ${id} to download`);
 		}
 
 		const jsonString = JSON.stringify(data, null, 2);
@@ -153,6 +241,11 @@ export const sheetDataStorage = {
 					const jsonData = JSON.parse(event.target.result as string);
 					// Validation using the new schema
 					const validatedData = sheetDataSchema.parse(jsonData);
+
+					// Ensure the uploaded sheet has a unique ID if one is not present
+					if (!validatedData.id) {
+						validatedData.id = Math.floor(Math.random() * 1000000);
+					}
 
 					this.set(validatedData);
 					resolve(validatedData);

@@ -2,65 +2,67 @@
   "id": 1,
   "age": 26,
   "username": "Robin Olsen",
-  "archetype": "The Grounded Seeker",
-  "courseGoal": "Evolve into a balanced, self-assured individual by strengthening consistency, emotional resilience, mindful awareness, and authentic expression.",
+  "archetype": "The Reflective Seeker",
+  "courseGoal": "To turn self-awareness into consistent action, staying calm in challenge, communicating honestly, and keeping a steady rhythm of effort, rest, and presence.",
+  "whereIAmNow": "I’m more aware of my triggers and reactive habits. I’ve started using small, consistent practices to stay grounded and intentional.",
+  "whereIWantToBe": "I want to live in line with my values, staying calm under pressure, speaking with honesty, and maintaining balance and presence every day.",
   "coreAttributes": [
     {
       "id": 1,
       "icon": "💪",
       "name": "Strength",
-      "level": 5,
-      "summary": "Resilient and determined through any challenge.",
-      "description": "Faces difficulty with persistence and grounded effort; thrives on steady progress.",
-      "focusArea": false
+      "level": 7.5,
+      "summary": "I’m consistent and disciplined, but still push too far at times, forgetting to recover until I feel drained.",
+      "description": "Strength means knowing when to push and when to rest. My next step is valuing recovery as part of the training.",
+      "notes": []
     },
     {
       "id": 2,
       "icon": "🤸",
       "name": "Dexterity",
-      "level": 4,
-      "summary": "Adaptable and responsive; learning to stay flexible under pressure.",
-      "description": "Quick to adjust to changes, learning to remain fluid when tension rises.",
-      "focusArea": true,
-      "linkedFocusArea": "Presence & Flow"
+      "level": 6.0,
+      "summary": "I adapt well and can reset quickly, but slip into overthinking before acting when I doubt myself.",
+      "description": "Dexterity means trust in flow. I’m learning to move first and refine through feedback instead of pre‑planning everything.",
+      "linkedFocusArea": "Presence & Flow",
+      "notes": []
     },
     {
       "id": 3,
-      "icon": "🛡️",
+      "icon": "🛡",
       "name": "Constitution",
-      "level": 6,
-      "summary": "Balanced resilience and emotional steadiness.",
-      "description": "Grounded and calm under prolonged stress; recovers quickly from challenges.",
-      "focusArea": false
+      "level": 8.0,
+      "summary": "I handle stress much better now, though I sometimes ignore early signs of overload until I crash.",
+      "description": "I’m improving at self-regulation and recovery. My goal is to catch tension earlier and reset before it builds.",
+      "notes": []
     },
     {
       "id": 4,
       "icon": "🧠",
       "name": "Intelligence",
-      "level": 4,
-      "summary": "Analytical and thoughtful; values clarity and depth.",
-      "description": "Processes complex ideas through structure and reflection; seeks to combine thought with timely action.",
-      "focusArea": true,
-      "linkedFocusArea": "Purposeful Discipline"
+      "level": 7.0,
+      "summary": "Reflection and structure are strong, but I still drift into overthinking instead of acting.",
+      "description": "I’m learning to turn reflection into decision—ending each journaling session with one tangible action.",
+      "linkedFocusArea": "Purposeful Discipline",
+      "notes": []
     },
     {
       "id": 5,
       "icon": "🌌",
       "name": "Wisdom",
-      "level": 5,
-      "summary": "Intuitive and grounded perspective shaped by reflection.",
-      "description": "Values empathy and understanding born of lived experience; draws meaning from contrast and nuance.",
-      "focusArea": false
+      "level": 8.0,
+      "summary": "I read patterns well and understand others deeply but lose perspective when tired or emotionally charged.",
+      "description": "Wisdom grows when I slow down, breathe, and come back to observation over judgment.",
+      "notes": []
     },
     {
       "id": 6,
       "icon": "✨",
       "name": "Charisma",
-      "level": 4,
-      "summary": "Warm and approachable; developing confident assertiveness.",
-      "description": "Connects genuinely; learning to express boundaries and opinions clearly.",
-      "focusArea": true,
-      "linkedFocusArea": "Authentic Expression"
+      "level": 6.5,
+      "summary": "I’m more honest and open, though I still soften my message or avoid tension out of caution.",
+      "description": "I’m practicing speaking simply and directly, trusting clarity over comfort.",
+      "linkedFocusArea": "Authentic Expression",
+      "notes": []
     }
   ],
   "focusAreas": [
@@ -68,130 +70,148 @@
       "id": 1,
       "name": "Presence & Flow",
       "icon": "🌊",
-      "theme": "From control to embodied awareness",
+      "theme": "From overthinking to calm, embodied awareness",
       "attributeLink": "Dexterity",
-      "purpose": "To respond fluidly to challenges with awareness instead of tension.",
-      "coreChallenge": "Overthinking or freezing during stress.",
+      "purpose": "To handle challenges calmly instead of reacting or freezing.",
+      "coreChallenge": "Overthinking and trying to control outcomes when under stress.",
       "keyPractices": [
-        "Daily breathwork and somatic grounding",
-        "Regular digital breaks to reset attention"
+        "Take mindful walks or movement breaks every day.",
+        "Pause during work to relax and reset attention."
       ],
-      "growthIndicator": "Able to shift from reactivity to grounded calm within moments."
+      "growthIndicator": "Able to stay calm and aware instead of reactive."
     },
     {
       "id": 2,
       "name": "Authentic Expression",
       "icon": "🔥",
-      "theme": "From silence to confident voice",
+      "theme": "From avoidance to open, confident communication",
       "attributeLink": "Charisma",
-      "purpose": "To speak truth clearly and compassionately.",
-      "coreChallenge": "Avoiding emotional honesty out of fear of conflict.",
+      "purpose": "To express truth and boundaries clearly and respectfully.",
+      "coreChallenge": "Avoiding hard conversations or reacting defensively.",
       "keyPractices": [
-        "Weekly reflection on assertive communication",
-        "Speak one truth daily with mindful tone"
+        "Pause in conflict and choose a responsible, calm response.",
+        "Try to see the intention behind the other person’s behavior."
       ],
-      "growthIndicator": "Communication feels natural, direct, and kind."
+      "growthIndicator": "Communication feels honest, direct, and builds trust."
     },
     {
       "id": 3,
       "name": "Purposeful Discipline",
-      "icon": "⚖️",
-      "theme": "From effort to integrated consistency",
+      "icon": "⚖",
+      "theme": "From reactive effort to steady, sustainable consistency",
       "attributeLink": "Intelligence",
-      "purpose": "To turn structure into self-trust and follow-through.",
-      "coreChallenge": "Difficulty maintaining focus and routine when motivation dips.",
+      "purpose": "To build self-trust through steady, realistic habits.",
+      "coreChallenge": "Staying consistent with healthy routines during stress.",
       "keyPractices": [
-        "Morning habit tracking for three priorities",
-        "Evening reflection and intention review"
+        "Do a short journaling session each night.",
+        "Keep a relaxing pre-bed routine to improve recovery."
       ],
-      "growthIndicator": "Habits sustain progress without strain; structure feels natural."
+      "growthIndicator": "Habits feel natural and supportive instead of forced."
     },
     {
       "id": 4,
-      "name": "Connection & Belonging",
-      "icon": "🤝",
-      "theme": "From guardedness to shared trust",
-      "attributeLink": "Wisdom",
-      "purpose": "To build mutual trust through openness and presence.",
-      "coreChallenge": "Hesitation to rely on others or share vulnerability.",
+      "name": "Fitness & Flexibility",
+      "icon": "🏃",
+      "theme": "From effort to flexible, sustainable movement",
+      "attributeLink": "Strength",
+      "purpose": "To increase overall fitness, agility, and endurance in a balanced way.",
+      "coreChallenge": "Maintaining discipline without turning fitness into pressure or overtraining.",
       "keyPractices": [
-        "Share one authentic feeling with a trusted ally each week",
-        "Engage in intentional listening without offering fixes"
+        "Walk or move daily with the goal of 10,000 steps.",
+        "Incorporate stretching or mobility work after workouts.",
+        "Use physical training as a way to reset mentally as well as physically."
       ],
-      "growthIndicator": "Relationships feel emotionally reciprocal and supportive."
+      "growthIndicator": "Fitness and flexibility steadily improve without burnout or strain."
     }
   ],
   "supportingPractices": [
     {
       "id": 1,
-      "name": "Meditation",
+      "name": "Daily Meditation",
       "icon": "🧘",
+      "purpose": "To stay centered, reset energy, and maintain balance.",
       "frequency": "Daily",
-      "purpose": "Stay centered, calm, and aware."
+      "notes": []
     },
     {
       "id": 2,
-      "name": "Journaling & Reflection",
+      "name": "Reflective Journaling",
       "icon": "📓",
-      "frequency": "3–4 times per week",
-      "purpose": "Track internal shifts and reinforce conscious learning."
+      "purpose": "To process the day, learn from patterns, and make adjustments.",
+      "frequency": "Daily (7 minutes)",
+      "notes": []
     },
     {
       "id": 3,
-      "name": "Strength Training & Movement",
-      "icon": "🏋️",
+      "name": "Strength Training",
+      "icon": "🏋",
+      "purpose": "To build physical and mental resilience, balanced with rest.",
       "frequency": "4–5 times per week",
-      "purpose": "Transform physical discipline into mental resilience."
+      "notes": []
     },
     {
       "id": 4,
-      "name": "Community & Connection",
-      "icon": "🤝",
-      "frequency": "Weekly",
-      "purpose": "Nurture relationships that reflect shared growth and trust."
+      "name": "10,000 Steps Daily",
+      "icon": "🚶",
+      "purpose": "To stay active, support recovery, and improve cardiovascular health.",
+      "frequency": "Daily",
+      "notes": []
     },
     {
       "id": 5,
-      "name": "Digital Sabbath",
-      "icon": "🌙",
-      "frequency": "Once weekly",
-      "purpose": "Create space for stillness, presence, and resetting attention."
+      "name": "Healthy Diet",
+      "icon": "🥗",
+      "purpose": "To support strength, focus, and recovery with balanced nutrition and a high-protein diet.",
+      "frequency": "Daily",
+      "notes": [
+        {
+          "id": 1,
+          "note": "Aim for whole, minimally processed foods."
+        },
+        {
+          "id": 2,
+          "note": "Prioritize lean proteins, complex carbs, and healthy fats."
+        },
+        {
+          "id": 3,
+          "note": "Stay hydrated and plan meals around training days."
+        }
+      ]
     }
   ],
   "strategy": {
-    "name": "The Grounded Growth Path",
-    "icon": "🗺️",
-    "theme": "Balance • Presence • Purposeful Action",
+    "name": "Strategy for Growth",
+    "icon": "🗺",
+    "theme": "Awareness • Responsibility • Consistency",
     "yearlyGoals": [
-      "Cultivate full self-ownership and resilience through consistent habits.",
-      "Develop confident communication grounded in authentic values.",
-      "Establish a sustainable rhythm balancing action, rest, and reflection."
+      "Live in alignment with my values: calm, authentic, balanced, and physically strong."
     ],
     "quarterlyGoals": {
-      "Q1": "Clarify purpose and refine daily systems for accountability.",
-      "Q2": "Strengthen adaptability and calm responsiveness in pressure situations.",
-      "Q3": "Expand relational trust through authentic expression.",
-      "Q4": "Reflect, integrate, and prepare for the next growth cycle."
+      "Q1": "Build consistent daily and weekly routines for awareness, strength, and stability.",
+      "Q2": "Shift from practicing awareness to naturally embodying it in everyday life.",
+      "Q3": "Stay balanced and mindful through high-stress periods while maintaining fitness routines.",
+      "Q4": "Communicate confidently and live authentically across all areas of life."
     },
     "monthlyGoals": [
-      "Introduce or refine one supportive habit each month.",
-      "Conduct a written review to track growth in two focus areas.",
-      "Engage in one new learning or community experience monthly."
+      "Solidify my fitness foundation by walking 10,000 steps each day.",
+      "Maintain consistency with strength training and stretching.",
+      "Follow a high-protein, balanced diet to support recovery and energy.",
+      "Use daily journaling to track energy, mood, and progress."
     ],
     "weeklyGoals": [
-      "Complete a weekly reflection and intention reset.",
-      "Share one authentic thought or request with someone close.",
-      "Exercise or move with mindful presence at least four days per week.",
-      "Dedicate one rest day for stillness and recalibration."
+      "Reflect weekly to notice growth and adjust habits.",
+      "Pause during conflict to see others’ perspectives and respond calmly.",
+      "Take one full rest day for recovery and mental reset."
     ],
     "dailyGoals": [
-      "Start with 10 minutes of meditation or deep breathing.",
-      "Set three clear intentions for the day.",
-      "Take mindful pauses throughout work periods.",
-      "Reflect with gratitude before rest."
+      "Start with a calm walk or meditation.",
+      "Take mindful breaks during work.",
+      "Reach at least 10,000 steps throughout the day.",
+      "Eat high-protein, balanced meals.",
+      "Stop working a few hours before bedtime.",
+      "Relax before bed with tea or meditation.",
+      "Write a short nightly journal entry.",
+      "Do a short workout or yoga session."
     ]
-  },
-  "whereIAmNow": "Grounded and reflective, yet still learning to balance presence with action and self-expression with calm.",
-  "whereIWantToBe": "Fully integrated — calm and confident, consistent in habits, expressive without fear, and aligned with purpose."
-
+  }
 }
