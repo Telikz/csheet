@@ -1,5 +1,6 @@
 import type React from "react";
 import { useEffect, useId } from "react";
+import { createPortal } from "react-dom";
 
 interface EditModalProps {
 	isOpen: boolean;
@@ -41,8 +42,8 @@ const EditModal: React.FC<EditModalProps> = ({
 
 	if (!isOpen) return null;
 
-	return (
-		<div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 overflow-hidden">
+	return createPortal(
+		<div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
 			<div className="modal-content bg-base-200 max-w-xl flex flex-col max-h-[90vh]">
 				<div className="p-6 sm:p-8 border-b border-base-300">
 					<h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
@@ -108,7 +109,8 @@ const EditModal: React.FC<EditModalProps> = ({
 					</button>
 				</div>
 			</div>
-		</div>
+		</div>,
+		document.body,
 	);
 };
 

@@ -319,39 +319,6 @@ const setSheetIds = (ids: number[]): void => {
 	localStorage.setItem(SHEET_IDS_KEY, JSON.stringify(ids));
 };
 
-// Migration function to handle old single-sheet data
-const migrateOldData = (): void => {
-	const oldKey = "sheet-data";
-	const oldData = localStorage.getItem(oldKey);
-
-	if (oldData) {
-		try {
-			const parsedData = JSON.parse(oldData);
-			const validatedData = sheetDataSchema.parse(parsedData);
-
-			// Use the existing ID or generate a new one
-			const id = validatedData.id || 1;
-			const newKey = getSheetKey(id);
-
-			// Save to new key
-			localStorage.setItem(newKey, JSON.stringify(validatedData));
-
-			// Update ID list
-			setSheetIds([id]);
-
-			// Remove old key
-			localStorage.removeItem(oldKey);
-			console.log("Migrated old single-sheet data to new multi-sheet format.");
-		} catch (error) {
-			console.error("Failed to migrate old sheet data:", error);
-			localStorage.removeItem(oldKey);
-		}
-	}
-};
-
-// Run migration once on load
-migrateOldData();
-
 export const sheetDataStorage = {
 	getAll(): SheetData[] {
 		const ids = getSheetIds();
