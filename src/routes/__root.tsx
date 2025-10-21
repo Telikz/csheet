@@ -4,6 +4,8 @@ import {
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
+import type React from "react";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import appCss from "../styles.css?url";
 
 interface MyRouterContext {
@@ -42,7 +44,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				{children}
+				<ThemeProvider>{children}</ThemeProvider>
 				<Scripts />
 			</body>
 		</html>

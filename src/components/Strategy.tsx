@@ -15,12 +15,15 @@ const GoalList: React.FC<{
 	goals?: (string | React.ReactNode)[];
 }> = ({ title, goals }) => (
 	<div>
-		<h4 className="text-lg font-semibold text-sky-400 mb-2">{title}</h4>
+		<h4 className="text-lg font-semibold text-primary mb-2">{title}</h4>
 		<ul className="space-y-2">
 			{goals?.map((goal) => (
-				<li key={goal?.toString()} className="flex items-start text-slate-400">
+				<li
+					key={goal?.toString()}
+					className="flex items-start text-base-content/70"
+				>
 					<svg
-						className="w-5 h-5 mr-2 text-indigo-400 flex-shrink-0 mt-0.5"
+						className="w-5 h-5 mr-2 text-success flex-shrink-0 mt-0.5"
 						fill="currentColor"
 						viewBox="0 0 20 20"
 					>
@@ -97,30 +100,26 @@ const StrategyComponent: React.FC<StrategyProps> = ({
 
 	return (
 		<>
-			<div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 sm:p-8 rounded-xl border border-slate-700/50 shadow-xl">
+			<div className="card">
 				<button
 					type="button"
 					onClick={() => isEditMode && openEdit("info")}
 					disabled={!isEditMode}
-					className="group flex items-center gap-4 mb-8 hover:opacity-80 transition-opacity duration-300 w-full"
+					className="section-header group"
 				>
-					<div className="text-4xl group-hover:scale-110 transition-transform duration-300">
-						{strategy.icon || "🎯"}
-					</div>
-					<div className="text-left flex-1">
-						<h3 className="text-3xl sm:text-4xl font-bold text-white group-hover:text-sky-300 transition-colors">
-							{strategy.name || "My Strategy"}
-						</h3>
-						<p className="text-base sm:text-lg text-indigo-400 font-medium tracking-wide">
+					<span className="section-icon">{strategy.icon || "🎯"}</span>
+					<div className="text-left flex-1 min-w-0">
+						<h3 className="section-title">{strategy.name || "My Strategy"}</h3>
+						<p className="text-sm sm:text-base text-secondary font-medium tracking-wide truncate">
 							{strategy.theme || "Define your theme"}
 						</p>
-						<p className="text-xs text-slate-500 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+						<p className="text-xs text-base-content/40 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
 							Click to edit
 						</p>
 					</div>
 				</button>
 
-				<div className="grid grid-cols-2 gap-8">
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
 					<button
 						type="button"
 						onClick={() => isEditMode && openEdit("daily")}

@@ -64,13 +64,13 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 					<h3 className="section-title">Focus Areas</h3>
 				</div>
 				<div className="text-center py-12 space-y-4">
-					<p className="text-slate-400">
+					<p className="text-base-content/70">
 						No focus areas yet. Add your first focus area to get started!
 					</p>
 					<button
 						type="button"
 						onClick={onAddArea}
-						className="btn-primary btn-icon justify-center inline-flex"
+						className="btn-add"
 					>
 						<span>✨</span> Add Focus Area
 					</button>
@@ -90,13 +90,13 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 					{focusAreas.map((area, index) => (
 						<div
 							key={area.id}
-							className="bg-slate-700/50 p-6 rounded-lg border border-slate-700 flex flex-col h-full shadow-lg group relative"
+							className="bg-base-300 p-6 rounded-lg border border-base-300 flex flex-col h-full shadow-lg group relative"
 						>
 							{isEditMode && (
 								<button
 									type="button"
 									onClick={() => onRemoveArea(index)}
-									className="absolute top-4 right-4 text-red-400 hover:text-red-300 transition-colors opacity-0 group-hover:opacity-100"
+									className="absolute top-4 right-4 text-error hover:text-error/80 transition-colors opacity-0 group-hover:opacity-100"
 									title="Delete focus area"
 								>
 									<svg
@@ -124,7 +124,7 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 								<div className="flex items-start space-x-4">
 									<span className="text-4xl">{area.icon}</span>
 									<div>
-										<h4 className="text-3xl font-bold text-white">
+										<h4 className="text-3xl font-bold text-base-content">
 											{area.name}
 										</h4>
 									</div>
@@ -132,24 +132,24 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 							</button>
 							<div className="mt-4 space-y-4 flex-grow">
 								<div>
-									<h5 className="font-semibold text-sky-400 mb-1">Purpose</h5>
-									<p className="text-slate-400 text-sm">{area.purpose}</p>
+									<h5 className="font-semibold text-primary mb-1">Purpose</h5>
+									<p className="text-base-content/70 text-sm">{area.purpose}</p>
 								</div>
 								<div>
-									<h5 className="font-semibold text-sky-400 mb-1">
+									<h5 className="font-semibold text-primary mb-1">
 										Core Challenge
 									</h5>
-									<p className="text-slate-400 text-sm">{area.coreChallenge}</p>
+									<p className="text-base-content/70 text-sm">{area.coreChallenge}</p>
 								</div>
 								<div>
-									<h5 className="font-semibold text-sky-400 mb-1">
+									<h5 className="font-semibold text-primary mb-1">
 										Key Practices
 									</h5>
-									<ul className="list-none space-y-1 text-sm text-slate-400">
+									<ul className="list-none space-y-1 text-sm text-base-content/70">
 										{area.keyPractices?.map((practice) => (
 											<li key={practice} className="flex items-start">
 												<svg
-													className="w-4 h-4 mr-2 mt-1 text-teal-400 flex-shrink-0"
+													className="w-4 h-4 mr-2 mt-1 text-success flex-shrink-0"
 													fill="none"
 													stroke="currentColor"
 													viewBox="0 0 24 24"
@@ -169,8 +169,8 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 									</ul>
 								</div>
 							</div>
-							<div className="mt-6 pt-4 border-t border-slate-700">
-								<p className="text-sm text-teal-400 flex items-start">
+							<div className="mt-6 pt-4 border-t border-base-300">
+								<p className="text-sm text-success flex items-start">
 									<span className="font-semibold mr-2">Growth Indicators:</span>
 									<span>{area.growthIndicator}</span>
 								</p>
@@ -182,7 +182,7 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 							<button
 								type="button"
 								onClick={onAddArea}
-								className="btn-primary btn-icon justify-center"
+								className="btn-add-block"
 							>
 								<span>➕</span> Add Another
 							</button>

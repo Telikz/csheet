@@ -7,6 +7,7 @@ import Onboarding from "@/components/Onboarding.tsx";
 import SheetManagerModal from "@/components/SheetManagerModal.tsx";
 import StrategyComponent from "@/components/Strategy.tsx";
 import SupportingPractices from "@/components/SupportingPractices.tsx";
+import ThemeSwitcher from "@/components/ThemeSwitcher.tsx";
 import type { SheetData } from "@/data/sheet-data.tsx";
 import { useSheet } from "@/hooks/use-sheet.ts";
 
@@ -76,39 +77,44 @@ const Sheet: React.FC = () => {
 	}
 
 	return (
-		<div className="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-slate-300 min-h-screen font-sans antialiased">
-			<div className="sticky top-0 z-40 bg-gradient-to-b from-slate-900/95 to-slate-900/80 backdrop-blur-sm border-b border-slate-700/50 shadow-lg">
+		<div className="bg-base-100 text-base-content min-h-screen font-sans antialiased">
+			<div className="sticky top-0 z-40 bg-base-200 backdrop-blur-sm border-b border-base-300 shadow-lg">
 				<div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
 					<div className="flex items-center gap-3">
 						<div className="text-2xl">🎮</div>
 						<div>
-							<h1 className="text-xl font-bold text-white">
+							<h1 className="text-xl font-bold">
 								{currentSheet?.username || "Character Sheet"}
 							</h1>
-							<p className="text-xs text-slate-400">ID: {currentSheet?.id}</p>
+							<p className="text-xs text-base-content/60">
+								ID: {currentSheet?.id}
+							</p>
 						</div>
 					</div>
-					<button
-						type="button"
-						onClick={() => setShowSheetManager(true)}
-						className="inline-flex items-center gap-2 btn-secondary"
-					>
-						<svg
-							className="w-4 h-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
+					<div className="flex items-center gap-2">
+						<ThemeSwitcher />
+						<button
+							type="button"
+							onClick={() => setShowSheetManager(true)}
+							className="inline-flex items-center gap-2 btn btn-ghost"
 						>
-							<title>Manage Sheets</title>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M4 6h16M4 12h16M4 18h16"
-							/>
-						</svg>
-						<span>Manage</span>
-					</button>
+							<svg
+								className="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<title>Manage Sheets</title>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
+									d="M4 6h16M4 12h16M4 18h16"
+								/>
+							</svg>
+							<span>Manage</span>
+						</button>
+					</div>
 				</div>
 			</div>
 
@@ -187,28 +193,30 @@ const Sheet: React.FC = () => {
 						isEditMode={isEditMode}
 					/>
 				) : (
-					<div className="card text-center py-12 space-y-4">
-						<div className="section-header justify-center mb-4">
+					<div className="card space-y-6">
+						<div className="section-header">
 							<span className="section-icon">🎯</span>
+							<h3 className="section-title">Strategy</h3>
 						</div>
-						<h3 className="section-title">Strategy</h3>
-						<p className="text-slate-400">
+						<p className="text-base-content/60 text-center">
 							No strategy yet. Create one to set your goals!
 						</p>
-						<button
-							type="button"
-							onClick={() =>
-								isEditMode &&
-								updateStrategyObject({
-									sheetId: currentSheet.id,
-									strategy: { name: "My Strategy", theme: "Growth" },
-								})
-							}
-							disabled={!isEditMode}
-							className="btn-primary btn-icon justify-center inline-flex"
-						>
-							<span>✨</span> Create Strategy
-						</button>
+						<div className="flex justify-center">
+							<button
+								type="button"
+								onClick={() =>
+									isEditMode &&
+									updateStrategyObject({
+										sheetId: currentSheet.id,
+										strategy: { name: "My Strategy", theme: "Growth" },
+									})
+								}
+								disabled={!isEditMode}
+								className="btn-add"
+							>
+								<span>✨</span> Create Strategy
+							</button>
+						</div>
 					</div>
 				)}
 			</main>
@@ -222,8 +230,11 @@ const Sheet: React.FC = () => {
 					setSelectedSheetId(id);
 					setShowSheetManager(false);
 				}}
-				onAddSheet={() => {
-					addSheet({ username: "New Character" });
+				onAddSheet={(useTemplate) => {
+					addSheet({
+						username: "New Character",
+						useTemplate,
+					});
 				}}
 				onDeleteSheet={(id) => {
 					deleteSheet(id);

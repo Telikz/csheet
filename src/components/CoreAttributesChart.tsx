@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
 	PolarAngleAxis,
 	PolarGrid,
@@ -8,6 +8,7 @@ import {
 	Tooltip,
 } from "recharts";
 import EditModal from "@/components/EditModal.tsx";
+import { useThemeContext } from "@/components/ThemeProvider";
 import type { CoreAttribute } from "@/data/sheet-data.tsx";
 
 interface CoreAttributesChartProps {
@@ -29,7 +30,7 @@ interface CustomTooltipProps {
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 	if (active && payload && payload.length) {
 		return (
-			<div className="bg-slate-700 text-white p-2 rounded-md border border-slate-600 shadow-lg">
+			<div className="bg-base-300 text-base-content p-2 rounded-md border border-base-300 shadow-lg">
 				<p className="font-bold">{`${label} : ${payload[0].value}`}</p>
 			</div>
 		);
@@ -45,6 +46,7 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 	isUpdating = false,
 	isEditMode = true,
 }) => {
+	const { theme } = useThemeContext();
 	const [hoveredAttribute, setHoveredAttribute] = useState<string | null>(null);
 	const [editingIndex, setEditingIndex] = useState<number | null>(null);
 	const [formData, setFormData] = useState({
@@ -53,6 +55,24 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 		icon: "",
 		summary: "",
 	});
+
+	const chartColors = useMemo(() => {
+		const isDark =
+			theme === "dark" ||
+			theme === "dracula" ||
+			theme === "nord" ||
+			theme === "business" ||
+			theme === "night" ||
+			theme === "sunset" ||
+			theme === "luxury";
+
+		return {
+			grid: isDark ? "#64748b" : "#cbd5e1",
+			axis: isDark ? "#e2e8f0" : "#334155",
+			stroke: isDark ? "#818cf8" : "#6366f1",
+			fill: isDark ? "#4f46e5" : "#4338ca",
+		};
+	}, [theme]);
 
 	const openEdit = (index: number) => {
 		const attr = attributes[index];
@@ -85,14 +105,10 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 					<h3 className="section-title">Core Attributes</h3>
 				</div>
 				<div className="text-center py-12 space-y-4">
-					<p className="text-slate-400">
+					<p className="text-base-content/70">
 						No core attributes yet. Add your first attribute to get started!
 					</p>
-					<button
-						type="button"
-						onClick={onAddAttribute}
-						className="btn-primary btn-icon justify-center inline-flex"
-					>
+					<button type="button" onClick={onAddAttribute} className="btn-add">
 						<span>✨</span> Add Attribute
 					</button>
 				</div>
@@ -117,16 +133,16 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 					<div className="h-96">
 						<ResponsiveContainer width="100%" height="100%">
 							<RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}>
-								<PolarGrid stroke="#475569" />
+								<PolarGrid stroke={chartColors.grid} />
 								<PolarAngleAxis
 									dataKey="subject"
-									tick={{ fill: "#cbd5e1", fontSize: 14 }}
+									tick={{ fill: chartColors.axis, fontSize: 14 }}
 								/>
 								<Radar
 									name="Level"
 									dataKey="level"
-									stroke="#818cf8"
-									fill="#4f46e5"
+									stroke={chartColors.stroke}
+									fill={chartColors.fill}
 									fillOpacity={0.6}
 								/>
 								<Tooltip content={<CustomTooltip />} />
@@ -138,7 +154,7 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 							<button
 								type="button"
 								key={attr.id}
-								className={`p-4 w-full rounded-lg transition-all duration-300 group text-left ${hoveredAttribute === attr.name ? "bg-slate-700/80" : "bg-slate-700/40"}`}
+								className={`p-4 w-full rounded-lg transition-all duration-300 group text-left ${hoveredAttribute === attr.name ? "bg-base-300/80" : "bg-base-300/40"}`}
 								onMouseEnter={() => setHoveredAttribute(attr.name ?? "")}
 								onMouseLeave={() => setHoveredAttribute(null)}
 								onClick={() => isEditMode && openEdit(index)}
@@ -149,16 +165,18 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 										<div className="flex justify-between items-center">
 											<div className="flex items-center space-x-3">
 												<span className="text-2xl">{attr.icon}</span>
-												<h4 className="text-lg font-semibold text-white">
+												<h4 className="text-lg font-semibold text-base-content">
 													{attr.name}
 												</h4>
 											</div>
-											<div className="text-xl font-bold text-indigo-300">
+											<div className="text-xl font-bold text-secondary300">
 												{attr.level}
-												<span className="text-sm text-slate-400">/10</span>
+												<span className="text-sm text-base-content/70">
+													/10
+												</span>
 											</div>
 										</div>
-										<p className="text-sm text-slate-400 mt-2">
+										<p className="text-sm text-base-content/70 mt-2">
 											{attr.summary}
 										</p>
 									</div>
@@ -169,7 +187,7 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 												e.stopPropagation();
 												onRemoveAttribute(index);
 											}}
-											className="ml-2 text-red-400 hover:text-red-300 transition-colors opacity-0 group-hover:opacity-100"
+											className="ml-2 text-error hover:text-error/80 transition-colors opacity-0 group-hover:opacity-100"
 											title="Delete attribute"
 										>
 											<svg
@@ -195,7 +213,7 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 							<button
 								type="button"
 								onClick={onAddAttribute}
-								className="btn-primary btn-icon justify-center w-full"
+								className="btn-add-block"
 							>
 								<span>➕</span> Add Another
 							</button>

@@ -5,6 +5,7 @@ import {
 	type SheetData,
 	type Strategy,
 	type SupportingPractice,
+	createDefaultSheet,
 	sheetDataStorage,
 } from "@/data/sheet-data.tsx";
 
@@ -56,14 +57,22 @@ export function useSheet() {
 
 	const addSheetMutation = useMutation({
 		mutationFn: async (
-			initialData: Partial<SheetData> = {},
+			initialData: Partial<SheetData> & { useTemplate?: boolean } = {},
 		): Promise<SheetData[]> => {
+			const { useTemplate, ...dataWithoutTemplate } = initialData;
+			const baseSheet = useTemplate
+				? createDefaultSheet(dataWithoutTemplate.username || "New Character")
+				: {
+						id: 0,
+						coreAttributes: [],
+						focusAreas: [],
+						supportingPractices: [],
+					};
+
 			const newSheet: SheetData = {
+				...baseSheet,
 				id: generateNumberId(),
-				coreAttributes: [],
-				focusAreas: [],
-				supportingPractices: [],
-				...initialData,
+				...dataWithoutTemplate,
 			};
 
 			sheetDataStorage.set(newSheet);

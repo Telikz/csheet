@@ -1,5 +1,6 @@
 import type React from "react";
 import { useRef } from "react";
+import ThemeSwitcher from "@/components/ThemeSwitcher.tsx";
 import type { SheetData } from "@/data/sheet-data.tsx";
 
 interface SheetManagerModalProps {
@@ -8,7 +9,7 @@ interface SheetManagerModalProps {
 	selectedSheetId: number | null;
 	isEditMode: boolean;
 	onSelectSheet: (id: number) => void;
-	onAddSheet: () => void;
+	onAddSheet: (useTemplate?: boolean) => void;
 	onDeleteSheet: (id: number) => void;
 	onUploadSheet: (file: File) => void;
 	onToggleEditMode: () => void;
@@ -56,37 +57,38 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 
 	return (
 		<div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-			<div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700/50 p-6 sm:p-8 max-w-2xl w-full mx-4 shadow-2xl">
-				<div className="flex items-center justify-between mb-6">
-					<h2 className="text-2xl sm:text-3xl font-bold text-white">
-						Manage Sheets
-					</h2>
-					<button
-						type="button"
-						onClick={onClose}
-						className="text-slate-400 hover:text-white transition-colors"
-						title="Close"
-					>
-						<svg
-							className="w-6 h-6"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
+			<div className="modal-content">
+				<div className="flex items-center justify-between p-6 sm:p-8 border-b border-base-300 flex-shrink-0">
+					<h2 className="text-2xl sm:text-3xl font-bold">Manage Sheets</h2>
+					<div className="flex items-center gap-3">
+						<ThemeSwitcher />
+						<button
+							type="button"
+							onClick={onClose}
+							className="btn btn-sm btn-ghost"
+							title="Close"
 						>
-							<title>Close</title>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						</svg>
-					</button>
+							<svg
+								className="w-6 h-6"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<title>Close</title>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+						</button>
+					</div>
 				</div>
 
-				<div className="space-y-2 max-h-96 overflow-y-auto mb-6">
+				<div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-2">
 					{sheets.length === 0 ? (
-						<p className="text-slate-400 text-center py-8">
+						<p className="text-base-content/60 text-center py-8">
 							No sheets yet. Create one to get started!
 						</p>
 					) : (
@@ -95,8 +97,8 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 								key={sheet.id}
 								className={`p-4 rounded-lg border transition-all duration-300 flex items-center justify-between w-full ${
 									selectedSheetId === sheet.id
-										? "bg-sky-600/20 border-sky-500/50"
-										: "bg-slate-700/30 border-slate-700/50"
+										? "bg-primary/20 border-primary/50"
+										: "bg-base-300 border-base-300"
 								}`}
 							>
 								<button
@@ -104,10 +106,10 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 									onClick={() => onSelectSheet(sheet.id)}
 									className="flex-1 text-left hover:opacity-80 transition-opacity min-w-0"
 								>
-									<h3 className="font-semibold text-white truncate">
+									<h3 className="font-semibold truncate">
 										{sheet.username || "Unnamed Sheet"}
 									</h3>
-									<p className="text-sm text-slate-400">
+									<p className="text-sm text-base-content/60">
 										ID: {sheet.id} • {sheet.coreAttributes?.length ?? 0}{" "}
 										attributes
 									</p>
@@ -117,7 +119,7 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 									onClick={() => {
 										handleExportSheet(sheet);
 									}}
-									className="ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/20 rounded transition-colors"
+									className="ml-2 btn btn-sm btn-ghost text-warning"
 									title="Export sheet"
 								>
 									<svg
@@ -141,7 +143,7 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 										e.stopPropagation();
 										onDeleteSheet(sheet.id);
 									}}
-									className="ml-2 p-2 text-red-400 hover:text-red-300 hover:bg-red-500/20 rounded transition-colors"
+									className="ml-2 btn btn-sm btn-ghost text-error"
 									title="Delete sheet"
 								>
 									<svg
@@ -164,43 +166,50 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 					)}
 				</div>
 
-				<div className="space-y-3 mb-4">
+				<div className="p-6 sm:p-8 border-t border-base-300 space-y-3 flex-shrink-0">
 					<button
 						type="button"
 						onClick={onToggleEditMode}
-						className={`w-full py-3 px-4 rounded-lg transition-all duration-300 font-semibold inline-flex items-center justify-center gap-2 ${
-							isEditMode
-								? "bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white hover:shadow-lg hover:shadow-purple-500/50"
-								: "bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white hover:shadow-lg hover:shadow-orange-500/50"
+						className={`w-full btn btn-lg gap-2 font-semibold ${
+							isEditMode ? "btn-secondary" : "btn-warning"
 						}`}
 					>
 						<span>{isEditMode ? "🔓" : "🔒"}</span>
 						{isEditMode ? "Disable" : "Enable"} Edit Mode
 					</button>
-				</div>
 
-				<div className="flex flex-col gap-3 sm:flex-row">
-					<button
-						type="button"
-						onClick={onAddSheet}
-						className="flex-1 bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-500 hover:to-sky-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/50 inline-flex items-center justify-center gap-2"
-					>
-						<span>➕</span> New Sheet
-					</button>
-					<button
-						type="button"
-						onClick={() => fileInputRef.current?.click()}
-						className="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50 inline-flex items-center justify-center gap-2"
-					>
-						<span>📤</span> Upload Sheet
-					</button>
-					<button
-						type="button"
-						onClick={onClose}
-						className="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300"
-					>
-						Close
-					</button>
+					<div className="flex flex-col gap-3">
+						<div className="flex flex-col sm:flex-row gap-3">
+							<button
+								type="button"
+								onClick={() => onAddSheet(false)}
+								className="flex-1 btn btn-lg btn-primary gap-2"
+							>
+								<span>➕</span> Empty Sheet
+							</button>
+							<button
+								type="button"
+								onClick={() => onAddSheet(true)}
+								className="flex-1 btn btn-lg btn-info gap-2"
+							>
+								<span>✨</span> From Template
+							</button>
+						</div>
+						<button
+							type="button"
+							onClick={() => fileInputRef.current?.click()}
+							className="w-full btn btn-lg btn-success gap-2"
+						>
+							<span>📤</span> Upload Sheet
+						</button>
+						<button
+							type="button"
+							onClick={onClose}
+							className="w-full btn btn-lg btn-neutral"
+						>
+							Close
+						</button>
+					</div>
 				</div>
 
 				<input

@@ -56,21 +56,19 @@ const SupportingPractices: React.FC<SupportingPracticesProps> = ({
 
 	if (!practices || practices.length === 0) {
 		return (
-			<div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 sm:p-8 rounded-xl border border-slate-700/50 shadow-xl">
-				<div className="flex items-center gap-3 mb-8">
-					<span className="text-3xl">🔄</span>
-					<h3 className="text-3xl sm:text-4xl font-bold text-white">
-						Supporting Practices
-					</h3>
+			<div className="card">
+				<div className="section-header">
+					<span className="section-icon">🔄</span>
+					<h3 className="section-title">Supporting Practices</h3>
 				</div>
 				<div className="text-center py-12 space-y-4">
-					<p className="text-slate-400">
+					<p className="text-base-content/70">
 						No supporting practices yet. Add your first practice to get started!
 					</p>
 					<button
 						type="button"
 						onClick={onAddPractice}
-						className="btn-primary btn-icon justify-center inline-flex"
+						className="btn-add"
 					>
 						<span>✨</span> Add Practice
 					</button>
@@ -81,25 +79,23 @@ const SupportingPractices: React.FC<SupportingPracticesProps> = ({
 
 	return (
 		<>
-			<div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 sm:p-8 rounded-xl border border-slate-700/50 shadow-xl">
-				<div className="flex items-center gap-3 mb-8">
-					<span className="text-3xl">🔄</span>
-					<h3 className="text-3xl sm:text-4xl font-bold text-white">
-						Supporting Practices
-					</h3>
+			<div className="card">
+				<div className="section-header">
+					<span className="section-icon">🔄</span>
+					<h3 className="section-title">Supporting Practices</h3>
 				</div>
 				<div className="space-y-4">
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
 						{practices.map((practice, index) => (
 							<div
 								key={practice.id}
-								className="bg-slate-700/50 p-4 rounded-lg text-center flex flex-col items-center hover:bg-slate-700/80 transition-colors duration-300 group relative"
+								className="bg-base-300 p-4 rounded-lg text-center flex flex-col items-center hover:bg-base-300/80 transition-colors duration-300 group relative"
 							>
 								{isEditMode && (
 									<button
 										type="button"
 										onClick={() => onRemovePractice(index)}
-										className="absolute top-1 right-1 text-red-400 hover:text-red-300 transition-colors opacity-0 group-hover:opacity-100"
+										className="absolute top-1 right-1 text-error hover:text-error/80 transition-colors opacity-0 group-hover:opacity-100"
 										title="Delete practice"
 									>
 										<svg
@@ -125,11 +121,13 @@ const SupportingPractices: React.FC<SupportingPracticesProps> = ({
 									className="text-center w-full hover:opacity-80 transition-opacity"
 								>
 									<span className="text-4xl mb-3 block">{practice.icon}</span>
-									<h4 className="font-semibold text-white">{practice.name}</h4>
-									<p className="text-sm text-indigo-300 mb-2">
+									<h4 className="font-semibold text-base-content">
+										{practice.name}
+									</h4>
+									<p className="text-sm text-secondary300 mb-2">
 										{practice.frequency}
 									</p>
-									<p className="text-xs text-slate-400 flex-grow">
+									<p className="text-xs text-base-content/70 flex-grow">
 										{practice.purpose}
 									</p>
 								</button>
@@ -141,7 +139,7 @@ const SupportingPractices: React.FC<SupportingPracticesProps> = ({
 							<button
 								type="button"
 								onClick={onAddPractice}
-								className="btn-primary btn-icon justify-center"
+								className="btn-add-block"
 							>
 								<span>➕</span> Add Another
 							</button>
