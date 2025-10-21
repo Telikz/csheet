@@ -43,7 +43,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 				}`}
 			>
 				<div className="text-center space-y-3">
-					<h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary/90 to-secondary group-hover:from-primary/100 group-hover:to-secondary transition-all duration-300 line-clamp-2">
+					<h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary/90 to-secondary group-hover:from-primary/100 group-hover:to-secondary transition-all duration-300 line-clamp-2">
 						{characterName}'s
 					</h1>
 					<p className="text-sm sm:text-base text-base-content/50 font-medium">
