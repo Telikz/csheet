@@ -25,8 +25,20 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			{
 				title: "Character sheet GDoF",
 			},
+			{
+				name: "theme-color",
+				content: "#000000",
+			},
+			{
+				name: "description",
+				content: "Game dynamics of life character sheet",
+			},
 		],
 		links: [
+			{
+				rel: "manifest",
+				href: "/manifest.json",
+			},
 			{
 				rel: "stylesheet",
 				href: appCss,

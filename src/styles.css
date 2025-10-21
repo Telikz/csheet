@@ -83,7 +83,7 @@ body {
 	}
 
 	.btn-add {
-		@apply btn btn-lg btn-primary gap-2 justify-center;
+		@apply btn btn-lg btn-ghost gap-2 justify-center;
 	}
 
 	.btn-add-block {

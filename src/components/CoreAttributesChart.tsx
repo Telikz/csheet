@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
 	PolarAngleAxis,
 	PolarGrid,
@@ -213,7 +213,7 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 							<button
 								type="button"
 								onClick={onAddAttribute}
-								className="btn-add-block"
+								className="btn-add"
 							>
 								<span>➕</span> Add Another
 							</button>

@@ -65,11 +65,7 @@ const SupportingPractices: React.FC<SupportingPracticesProps> = ({
 					<p className="text-base-content/70">
 						No supporting practices yet. Add your first practice to get started!
 					</p>
-					<button
-						type="button"
-						onClick={onAddPractice}
-						className="btn-add"
-					>
+					<button type="button" onClick={onAddPractice} className="btn-add">
 						<span>✨</span> Add Practice
 					</button>
 				</div>
@@ -136,11 +132,7 @@ const SupportingPractices: React.FC<SupportingPracticesProps> = ({
 					</div>
 					{isEditMode && (
 						<div className="flex justify-center">
-							<button
-								type="button"
-								onClick={onAddPractice}
-								className="btn-add-block"
-							>
+							<button type="button" onClick={onAddPractice} className="btn-add">
 								<span>➕</span> Add Another
 							</button>
 						</div>

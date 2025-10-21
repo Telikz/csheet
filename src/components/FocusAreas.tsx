@@ -67,11 +67,7 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 					<p className="text-base-content/70">
 						No focus areas yet. Add your first focus area to get started!
 					</p>
-					<button
-						type="button"
-						onClick={onAddArea}
-						className="btn-add"
-					>
+					<button type="button" onClick={onAddArea} className="btn-add">
 						<span>✨</span> Add Focus Area
 					</button>
 				</div>
@@ -139,7 +135,9 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 									<h5 className="font-semibold text-primary mb-1">
 										Core Challenge
 									</h5>
-									<p className="text-base-content/70 text-sm">{area.coreChallenge}</p>
+									<p className="text-base-content/70 text-sm">
+										{area.coreChallenge}
+									</p>
 								</div>
 								<div>
 									<h5 className="font-semibold text-primary mb-1">
@@ -179,11 +177,7 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 					))}
 					{isEditMode && (
 						<div className="col-span-1 md:col-span-2 flex justify-center">
-							<button
-								type="button"
-								onClick={onAddArea}
-								className="btn-add-block"
-							>
+							<button type="button" onClick={onAddArea} className="btn-add">
 								<span>➕</span> Add Another
 							</button>
 						</div>
