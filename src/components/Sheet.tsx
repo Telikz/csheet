@@ -1,5 +1,6 @@
 import type React from "react";
 import { useEffect, useState } from "react";
+import CharacterCard from "@/components/CharacterCard.tsx";
 import CoreAttributesChart from "@/components/CoreAttributesChart.tsx";
 import FocusAreas from "@/components/FocusAreas.tsx";
 import Header from "@/components/Header.tsx";
@@ -119,6 +120,15 @@ const Sheet: React.FC = () => {
 			</div>
 
 			<main className="max-w-[1800px] mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+				<CharacterCard
+					userData={currentSheet}
+					onUpdate={(updates) =>
+						updateHeader({ sheetId: currentSheet.id, updates })
+					}
+					isEditMode={isEditMode}
+					isUpdating={isUpdating}
+				/>
+
 				<Header
 					userData={currentSheet}
 					onUpdate={(updates) =>

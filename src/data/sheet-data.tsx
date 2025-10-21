@@ -63,10 +63,7 @@ export const strategySchema = z.object({
 
 export const sheetDataSchema = z.object({
 	id: z.number(),
-	age: z.number().optional(),
 	username: z.string().optional(),
-	archetype: z.string().optional(),
-	courseGoal: z.string().optional(),
 	whereIAmNow: z.string().optional(),
 	whereIWantToBe: z.string().optional(),
 
@@ -92,9 +89,6 @@ export const createDefaultSheet = (
 ): SheetData => ({
 	id: 0,
 	username,
-	age: undefined,
-	archetype: undefined,
-	courseGoal: undefined,
 	whereIAmNow: undefined,
 	whereIWantToBe: undefined,
 	strategy: {

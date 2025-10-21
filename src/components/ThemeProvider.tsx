@@ -1,6 +1,6 @@
 import type React from "react";
 import { createContext, useContext } from "react";
-import { useTheme, type UseThemeReturn } from "@/hooks/use-theme";
+import { type UseThemeReturn, useTheme } from "@/hooks/use-theme";
 
 const ThemeContext = createContext<UseThemeReturn | undefined>(undefined);
 

@@ -1,6 +1,5 @@
 import type React from "react";
 import { useRef } from "react";
-import ThemeSwitcher from "@/components/ThemeSwitcher.tsx";
 import type { SheetData } from "@/data/sheet-data.tsx";
 
 interface SheetManagerModalProps {
@@ -61,7 +60,6 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 				<div className="flex items-center justify-between p-6 sm:p-8 border-b border-base-300 flex-shrink-0">
 					<h2 className="text-2xl sm:text-3xl font-bold">Manage Sheets</h2>
 					<div className="flex items-center gap-3">
-						<ThemeSwitcher />
 						<button
 							type="button"
 							onClick={onClose}
@@ -170,9 +168,7 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 					<button
 						type="button"
 						onClick={onToggleEditMode}
-						className={`w-full btn btn-lg gap-2 font-semibold ${
-							isEditMode ? "btn-secondary" : "btn-warning"
-						}`}
+						className={`w-full btn btn-lg gap-2 font-semibold btn-neutral`}
 					>
 						<span>{isEditMode ? "🔓" : "🔒"}</span>
 						{isEditMode ? "Disable" : "Enable"} Edit Mode
@@ -183,14 +179,14 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 							<button
 								type="button"
 								onClick={() => onAddSheet(false)}
-								className="flex-1 btn btn-lg btn-primary gap-2"
+								className="flex-1 btn btn-lg btn-neutral gap-2"
 							>
 								<span>➕</span> Empty Sheet
 							</button>
 							<button
 								type="button"
 								onClick={() => onAddSheet(true)}
-								className="flex-1 btn btn-lg btn-info gap-2"
+								className="flex-1 btn btn-lg btn-neutral gap-2"
 							>
 								<span>✨</span> From Template
 							</button>
@@ -198,7 +194,7 @@ const SheetManagerModal: React.FC<SheetManagerModalProps> = ({
 						<button
 							type="button"
 							onClick={() => fileInputRef.current?.click()}
-							className="w-full btn btn-lg btn-success gap-2"
+							className="w-full btn btn-lg btn-neutral gap-2"
 						>
 							<span>📤</span> Upload Sheet
 						</button>

@@ -1,11 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
 	type CoreAttribute,
+	createDefaultSheet,
 	type FocusArea,
 	type SheetData,
 	type Strategy,
 	type SupportingPractice,
-	createDefaultSheet,
 	sheetDataStorage,
 } from "@/data/sheet-data.tsx";
 
@@ -432,15 +432,7 @@ export function useSheet() {
 		}: {
 			sheetId: number;
 			updates: Partial<
-				Pick<
-					SheetData,
-					| "username"
-					| "age"
-					| "archetype"
-					| "courseGoal"
-					| "whereIAmNow"
-					| "whereIWantToBe"
-				>
+				Pick<SheetData, "username" | "whereIAmNow" | "whereIWantToBe">
 			>;
 		}): Promise<SheetData[]> => {
 			return updateSheetAndCache(sheetId, (sheet) => ({

@@ -19,9 +19,6 @@ const Header: React.FC<HeaderProps> = ({
 	const [editingField, setEditingField] = useState<string | null>(null);
 	const [formData, setFormData] = useState({
 		username: userData.username || "",
-		age: userData.age?.toString() || "",
-		archetype: userData.archetype || "",
-		courseGoal: userData.courseGoal || "",
 		whereIAmNow: userData.whereIAmNow || "",
 		whereIWantToBe: userData.whereIWantToBe || "",
 	});
@@ -29,9 +26,6 @@ const Header: React.FC<HeaderProps> = ({
 	const handleSave = () => {
 		onUpdate({
 			username: formData.username,
-			age: formData.age ? parseInt(formData.age, 10) : undefined,
-			archetype: formData.archetype,
-			courseGoal: formData.courseGoal,
 			whereIAmNow: formData.whereIAmNow,
 			whereIWantToBe: formData.whereIWantToBe,
 		});
@@ -41,76 +35,6 @@ const Header: React.FC<HeaderProps> = ({
 	return (
 		<>
 			<header className="space-y-6">
-				<button
-					type="button"
-					onClick={() => isEditMode && setEditingField("info")}
-					disabled={!isEditMode}
-					className="w-full group text-left"
-				>
-					<div className="space-y-2">
-						<h2 className="text-6xl text-center font-black text-transparent bg-clip-text bg-gradient-to-r from-primary/90 to-secondary group-hover:from-primary/100 group-hover:to-secondary transition-all duration-300">
-							{`${userData.username}'s Character sheet` || "Your Character"}
-						</h2>
-					</div>
-				</button>
-
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-					<button
-						type="button"
-						onClick={() => isEditMode && setEditingField("info")}
-						disabled={!isEditMode}
-						className="card-header group"
-					>
-						<div className="flex items-start gap-2">
-							<span className="text-lg">👤</span>
-							<div className="flex-1 min-w-0">
-								<h4 className="text-xs font-semibold text-primary mb-1">Age</h4>
-								<p className="text-base-content/70 truncate">
-									{userData.age || "Not set"}
-								</p>
-							</div>
-						</div>
-					</button>
-
-					<button
-						type="button"
-						onClick={() => isEditMode && setEditingField("info")}
-						disabled={!isEditMode}
-						className="card-header group"
-					>
-						<div className="flex items-start gap-2">
-							<span className="text-lg">🎭</span>
-							<div className="flex-1 min-w-0">
-								<h4 className="text-xs font-semibold text-primary mb-1">
-									Archetype
-								</h4>
-								<p className="text-base-content/70 truncate">
-									{userData.archetype || "Not set"}
-								</p>
-							</div>
-						</div>
-					</button>
-
-					<button
-						type="button"
-						onClick={() => isEditMode && setEditingField("info")}
-						disabled={!isEditMode}
-						className="card-header group col-span-1 sm:col-span-2 lg:col-span-2"
-					>
-						<div className="flex items-start gap-2">
-							<span className="text-lg">🎯</span>
-							<div className="flex-1 min-w-0">
-								<h4 className="text-xs font-semibold text-primary mb-1">
-									Course Goal
-								</h4>
-								<p className="text-base-content/70">
-									{userData.courseGoal || "Not set"}
-								</p>
-							</div>
-						</div>
-					</button>
-				</div>
-
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<button
 						type="button"
@@ -159,31 +83,6 @@ const Header: React.FC<HeaderProps> = ({
 						onChange: (value) =>
 							setFormData({ ...formData, username: String(value) }),
 						placeholder: "Enter your name",
-					},
-					{
-						name: "age",
-						label: "Age",
-						type: "number",
-						value: formData.age,
-						onChange: (value) =>
-							setFormData({ ...formData, age: String(value) }),
-						placeholder: "Enter your age",
-					},
-					{
-						name: "archetype",
-						label: "Archetype",
-						value: formData.archetype,
-						onChange: (value) =>
-							setFormData({ ...formData, archetype: String(value) }),
-						placeholder: "e.g., Leader, Creator, Sage",
-					},
-					{
-						name: "courseGoal",
-						label: "Course Goal",
-						value: formData.courseGoal,
-						onChange: (value) =>
-							setFormData({ ...formData, courseGoal: String(value) }),
-						placeholder: "What's your main goal?",
 					},
 				]}
 				onSave={handleSave}
