@@ -34,8 +34,8 @@ const Header: React.FC<HeaderProps> = ({
 
 	return (
 		<>
-			<header className="space-y-6">
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<header className="space-y-2">
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 					<button
 						type="button"
 						onClick={() => isEditMode && setEditingField("now")}

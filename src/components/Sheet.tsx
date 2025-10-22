@@ -79,8 +79,8 @@ const Sheet: React.FC = () => {
 
 	return (
 		<div className="bg-base-100 text-base-content min-h-screen font-sans antialiased">
-			<div className="sticky top-0 z-40 bg-base-200 backdrop-blur-sm border-b border-base-300 shadow-lg">
-				<div className="max-w-[1800px] px-2 sm:px-3 lg:px-4 py-4 flex items-center justify-between">
+			<div className="sticky top-0 z-40 bg-base-200 backdrop-blur-sm border-b border-base-300 mb-5">
+				<div className="px-2 sm:px-3 lg:px-4 py-4 flex items-center justify-between">
 					<div className="flex items-center gap-3">
 						<div>
 							<h1 className="text-xl font-bold">
@@ -104,7 +104,7 @@ const Sheet: React.FC = () => {
 				</div>
 			</div>
 
-			<main className="max-w-[1800px] mx-auto p-2 sm:p-4 lg:p-6 space-y-8">
+			<main className="max-w-[2000px] mx-auto p-2 sm:p-2 lg:p-6 space-y-4">
 				<CharacterCard
 					userData={currentSheet}
 					onUpdate={(updates) =>

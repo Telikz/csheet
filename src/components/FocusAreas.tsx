@@ -77,16 +77,16 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 
 	return (
 		<>
-			<div className="space-y-6 card">
+			<div className="space-y-5 card">
 				<div className="section-header">
 					<span className="section-icon">🎯</span>
 					<h3 className="section-title">Focus Areas</h3>
 				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 					{focusAreas.map((area, index) => (
 						<div
 							key={area.id}
-							className="bg-base-300 p-6 rounded-lg border border-base-300 flex flex-col h-full shadow-lg group relative"
+							className="bg-base-300/40 hover:bg-base-300/80 p-6 rounded-lg flex flex-col h-full group relative"
 						>
 							{isEditMode && (
 								<button
@@ -117,10 +117,10 @@ const FocusAreas: React.FC<FocusAreasProps> = ({
 								disabled={!isEditMode}
 								className="text-left flex-1 hover:opacity-80 transition-opacity"
 							>
-								<div className="flex items-start space-x-4">
-									<span className="text-4xl">{area.icon}</span>
+								<div className="flex items-start space-x-2">
+									<span className="text-2xl">{area.icon}</span>
 									<div>
-										<h4 className="text-3xl font-bold text-base-content">
+										<h4 className="text-2xl font-bold text-base-content">
 											{area.name}
 										</h4>
 									</div>

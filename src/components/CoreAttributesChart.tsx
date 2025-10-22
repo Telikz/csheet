@@ -125,11 +125,11 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 	return (
 		<>
 			<div className="card">
-				<div className="section-header mb-8">
+				<div className="section-header mb-2">
 					<span className="section-icon">💪</span>
 					<h3 className="section-title">Core Attributes</h3>
 				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
 					<div className="h-96">
 						<ResponsiveContainer width="100%" height="100%">
 							<RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}>
@@ -187,7 +187,7 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 												e.stopPropagation();
 												onRemoveAttribute(index);
 											}}
-											className="ml-2 text-error hover:text-error/80 transition-colors opacity-0 group-hover:opacity-100"
+											className="absolute right-5 text-error hover:text-error/80 transition-colors opacity-0 group-hover:opacity-100"
 											title="Delete attribute"
 										>
 											<svg
@@ -210,13 +210,15 @@ const CoreAttributesChart: React.FC<CoreAttributesChartProps> = ({
 							</button>
 						))}
 						{isEditMode && (
-							<button
-								type="button"
-								onClick={onAddAttribute}
-								className="btn-add"
-							>
-								<span>➕</span> Add Another
-							</button>
+							<div className="flex justify-center">
+								<button
+									type="button"
+									onClick={onAddAttribute}
+									className="btn-add"
+								>
+									<span>➕</span> Add Another
+								</button>
+							</div>
 						)}
 					</div>
 				</div>

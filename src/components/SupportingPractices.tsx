@@ -85,7 +85,7 @@ const SupportingPractices: React.FC<SupportingPracticesProps> = ({
 						{practices.map((practice, index) => (
 							<div
 								key={practice.id}
-								className="bg-base-300 p-4 rounded-lg text-center flex flex-col items-center hover:bg-base-300/80 transition-colors duration-300 group relative"
+								className="bg-base-300/40 p-4 rounded-lg text-center flex flex-col items-center hover:bg-base-300/80 transition-colors duration-300 group relative"
 							>
 								{isEditMode && (
 									<button
